@@ -1,0 +1,11 @@
+#Project files
+*.iml
+
+#Subversion files
+.idea
+target/
+logs/
+.settings/
+.classpath
+.project
+MANIFEST.MF
