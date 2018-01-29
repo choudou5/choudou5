@@ -38,7 +38,6 @@ public class MediaHelper {
     public static UploadResult upload(String accessToken, String type, File file) throws Exception {
         MediaService mediaService = ServiceFactory.getInstance().getOpenService(MediaService.class);
         UploadResult uploadResult = mediaService.uploadMediaFile(accessToken, type, file);
-        FileUtil.getInputStream()
         return uploadResult;
     }
 
