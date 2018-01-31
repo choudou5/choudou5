@@ -1,5 +1,8 @@
 package com.alibaba.dingtalk.openapi;
 
+import com.alibaba.dingtalk.openapi.message.LinkMessage;
+import com.alibaba.dingtalk.openapi.message.Message;
+import com.alibaba.dingtalk.openapi.message.TextMessage;
 import com.alibaba.dingtalk.openapi.message.chat.ChatGroupHelper;
 import com.dingtalk.open.client.api.model.corp.ChatInfo;
 import com.dingtalk.open.client.api.model.corp.MessageBody;
@@ -26,17 +29,16 @@ public class ChatApiTest extends BaseApiTest {
         String chatId = "chatdf8431c9d92618bdb976aef3230cc61c";
 
         //发送文本消息
-        MessageBody.TextBody textBody = new MessageBody.TextBody();
-        textBody.setContent("66666666666");
-//        sendMsg(chatId, textBody);
+//        TextMessage message = new TextMessage("66666666666");
+//        sendMsg(chatId, message);
 
         //发送链接消息
-        MessageBody.LinkBody linkBody = new MessageBody.LinkBody();
-        linkBody.setTitle("标题");
-        linkBody.setText("链接到我的solrhome");
-        linkBody.setMessageUrl("http://www.solrhome.com");
-        linkBody.setPicUrl("https://gw.alicdn.com/tps/TB1FN16LFXXXXXJXpXXXXXXXXXX-256-130.png");
-        sendMsg(chatId, linkBody);
+        LinkMessage message = new LinkMessage();
+        message.setTitle("标题");
+        message.setText("链接到我的solrhom888888");
+        message.setMessageUrl("http://www.solrhome.com");
+        message.setPicUrl("https://gw.alicdn.com/tps/TB1FN16LFXXXXXJXpXXXXXXXXXX-256-130.png");
+        sendMsg(chatId, message);
 
         //更多参考 实现方式参考 MessageBody
         //doc: https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.bpMc6I&treeId=385&articleId=104977&docType=1#s8
@@ -53,7 +55,7 @@ public class ChatApiTest extends BaseApiTest {
         return chatId;
     }
 
-    private void sendMsg(String chatId, MessageBody message) throws Exception {
+    private void sendMsg(String chatId, Message message) throws Exception {
         ChatGroupHelper.sendMsg(accessToken, chatId, message);
     }
 

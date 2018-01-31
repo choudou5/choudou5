@@ -5,7 +5,6 @@ import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Name：用户api
@@ -29,7 +28,7 @@ public class UserApiTest extends BaseApiTest {
         log("成功更新成员", "成员信息=", userDetail);
 
         // 获取成员
-        CorpUserDetail userDetail11 = UserHelper.getUser(accessToken, userDetail.getUserid());
+        CorpUserDetail userDetail11 = UserHelper.getUserInfo(accessToken, userDetail.getUserid());
         log("成功获取成员", "成员userid=", userDetail11.getUserid());
 
         //删除成员

@@ -1,17 +1,15 @@
 package com.alibaba.dingtalk.openapi.role;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.dingtalk.openapi.Env;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
-import com.dingtalk.api.request.CorpRoleGetrolegroupRequest;
-import com.dingtalk.api.request.CorpRoleListRequest;
-import com.dingtalk.api.request.CorpRoleSimplelistRequest;
-import com.dingtalk.api.response.CorpRoleGetrolegroupResponse;
-import com.dingtalk.api.response.CorpRoleListResponse;
-import com.dingtalk.api.response.CorpRoleSimplelistResponse;
+import com.dingtalk.api.request.*;
+import com.dingtalk.api.response.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,4 +67,61 @@ public class RoleHelper {
     }
 
 
+    /**
+     * 为员工增加角色信息
+     * @param accessToken
+     * @param roleId
+     * @param userIdList
+     * @return
+     * @throws Exception
+     */
+    public static boolean addRoleForEmployee(String accessToken, String roleId, List<String> userIdList) throws Exception {
+        return addRoleForEmployee(accessToken, Arrays.asList(roleId), userIdList);
+    }
+
+    /**
+     * 批量为员工增加角色信息
+     * @param accessToken
+     * @param roleIdList
+     * @param userIdList
+     * @return
+     * @throws Exception
+     */
+    public static boolean addRoleForEmployee(String accessToken, List<String> roleIdList, List<String> userIdList) throws Exception {
+        DingTalkClient client = new DefaultDingTalkClient(Env.TOP_HOST);
+        CorpRoleAddrolesforempsRequest req = new CorpRoleAddrolesforempsRequest();
+        req.setRolelidList(StrUtil.join(",", roleIdList));
+        req.setUseridList(StrUtil.join(",", userIdList));
+        CorpRoleAddrolesforempsResponse rsp = client.execute(req, accessToken);
+        return rsp.getResult().getSuccess();
+    }
+
+    /**
+     * 批量删除员工的 角色信息
+     * @param accessToken
+     * @param roleId
+     * @param userIdList
+     * @return
+     * @throws Exception
+     */
+    public static boolean removeRoleForEmployee(String accessToken, String roleId, List<String> userIdList) throws Exception {
+        return removeRoleForEmployee(accessToken, Arrays.asList(roleId), userIdList);
+    }
+
+    /**
+     * 批量删除员工的 角色信息
+     * @param accessToken
+     * @param roleIdList
+     * @param userIdList
+     * @return
+     * @throws Exception
+     */
+    public static boolean removeRoleForEmployee(String accessToken, List<String> roleIdList, List<String> userIdList) throws Exception {
+        DingTalkClient client = new DefaultDingTalkClient(Env.TOP_HOST);
+        CorpRoleRemoverolesforempsRequest req = new CorpRoleRemoverolesforempsRequest();
+        req.setRoleidList(StrUtil.join(",", roleIdList));
+        req.setUseridList(StrUtil.join(",", userIdList));
+        CorpRoleRemoverolesforempsResponse rsp = client.execute(req, accessToken);
+        return rsp.getResult().getSuccess();
+    }
 }

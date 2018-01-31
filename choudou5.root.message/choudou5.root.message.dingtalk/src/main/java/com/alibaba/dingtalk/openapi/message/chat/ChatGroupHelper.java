@@ -2,6 +2,7 @@ package com.alibaba.dingtalk.openapi.message.chat;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.dingtalk.openapi.message.LightAppMessageDelivery;
+import com.alibaba.dingtalk.openapi.message.Message;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -63,17 +64,16 @@ public class ChatGroupHelper {
      *  发送 群组信息
      * @param accessToken
      * @param chatid
-     * @param messageBody 参考 MessageBody类 里的静态类
+     * @param message
      * @throws Exception
      */
-    public static void sendMsg(String accessToken, String chatid, MessageBody messageBody)
+    public static void sendMsg(String accessToken, String chatid, Message message)
             throws Exception {
-        String msgtype = StrUtil.subBefore(messageBody.getClass().getSimpleName(), "Body", false).toLowerCase();
         String url = "/chat/send?access_token="+accessToken;
         Map params = new HashMap<>();
         params.put("chatid", chatid);
-        params.put("msgtype", msgtype);
-        params.put(msgtype, JSON.toJSONString(messageBody));
+        params.put("msgtype", message.type());
+        params.put(message.type(), JSON.toJSONString(message));
         HttpHelper.httpPost(url, params);
     }
 

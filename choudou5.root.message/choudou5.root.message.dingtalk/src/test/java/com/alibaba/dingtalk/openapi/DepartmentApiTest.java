@@ -39,11 +39,11 @@ public class DepartmentApiTest extends BaseApiTest {
         updateDepartment(departmentId);
 
         // 获取部门成员
-        CorpUserList userList = UserHelper.getDepartmentUser(accessToken, departmentId, null, null, null);
+        CorpUserList userList = UserHelper.getDepartmentUser(accessToken, departmentId, null, null);
         log("成功获取部门成员", "部门成员user=", userList.getUserlist());
 
         // 获取部门成员（详情）
-        CorpUserDetailList userList2 = UserHelper.getUserDetails(accessToken, departmentId, null, null, null);
+        CorpUserDetailList userList2 = UserHelper.getUserDetails(accessToken, departmentId, null, null);
         log("成功获取部门成员详情", "部门成员详情user=", userList2.getUserlist());
 
         //删除部门
@@ -99,7 +99,7 @@ public class DepartmentApiTest extends BaseApiTest {
             int size = 50;
             CorpUserDetailList corpUserList = new CorpUserDetailList();
             while (true) {
-                corpUserList = UserHelper.getUserDetails(accessToken, department.getId(), offset, size, null);
+                corpUserList = UserHelper.getUserDetails(accessToken, department.getId(), offset, size);
                 department.addUserList(corpUserList.getUserlist());
                 if (Boolean.TRUE.equals(corpUserList.isHasMore())) {
                     offset += size;

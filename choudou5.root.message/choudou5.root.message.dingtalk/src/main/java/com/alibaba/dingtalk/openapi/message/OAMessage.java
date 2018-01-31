@@ -31,11 +31,19 @@ import java.util.List;
     }
  */
 public class OAMessage extends Message {
-	
-	public String message_url;
-	public Head head;
-	public Body body;
-	
+
+	private String message_url;
+	private Head head;
+	private Body body;
+
+	public OAMessage() {
+	}
+
+	public OAMessage(String message_url, Head head, Body body) {
+		this.message_url = message_url;
+		this.head = head;
+		this.body = body;
+	}
 
 	@Override
 	public String type() {
@@ -44,26 +52,130 @@ public class OAMessage extends Message {
 	
 	//content
 	public static class Head {
-		public String bgcolor;
+		private String text;
+		private String bgcolor;
+
+		public Head(String text, String bgcolor) {
+			this.text = text;
+			this.bgcolor = bgcolor;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public String getBgcolor() {
+			return bgcolor;
+		}
+
 	}
 	
 	public static class Body {
-		public String title;
-		public List<Form> form;
-		public Rich rich;
-		public String content;
-		public String image;
-		public String file_found;
-		public String author;
+		private String title;
+		private List<Form> form;
+		private Rich rich;
+		private String content;
+		private String image;
+		private String file_found;
+		private String author;
 		
 		public static class Form {
-			public String key;
-			public String value;
+			private String key;
+			private String value;
+
+			public String getKey() {
+				return key;
+			}
+
+			public void setKey(String key) {
+				this.key = key;
+			}
+
+			public String getValue() {
+				return value;
+			}
+
+			public void setValue(String value) {
+				this.value = value;
+			}
 		}
 		
 		public static class Rich {
-			public String num;
-			public String unit;
+			private String num;
+			private String unit;
+
+			public String getNum() {
+				return num;
+			}
+
+			public void setNum(String num) {
+				this.num = num;
+			}
+
+			public String getUnit() {
+				return unit;
+			}
+
+			public void setUnit(String unit) {
+				this.unit = unit;
+			}
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
+		public List<Form> getForm() {
+			return form;
+		}
+
+		public void setForm(List<Form> form) {
+			this.form = form;
+		}
+
+		public Rich getRich() {
+			return rich;
+		}
+
+		public void setRich(Rich rich) {
+			this.rich = rich;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
+
+		public String getImage() {
+			return image;
+		}
+
+		public void setImage(String image) {
+			this.image = image;
+		}
+
+		public String getFile_found() {
+			return file_found;
+		}
+
+		public void setFile_found(String file_found) {
+			this.file_found = file_found;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public void setAuthor(String author) {
+			this.author = author;
 		}
 	}
+
 }

@@ -16,7 +16,8 @@
 		<module>choudou5.root.message.dingtalk</module>
 		<module>choudou5.root.message.wework</module>
 		<module>choudou5.root.message.mq</module>
-		
+		<module>choudou5.root.message.sms</module>
+
 	</modules>
 
 	<dependencies>
