@@ -23,10 +23,18 @@
 		<module>choudou5.root.nosql</module>
 		<module>choudou5.root.search</module>
 		<module>choudou5.root.security</module>
+		<module>choudou5.root.file</module>
 	</modules>
 
 
 	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>cn.hutool</groupId>
