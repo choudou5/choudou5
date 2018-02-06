@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
         <groupId>com.choudou5</groupId>
-        <artifactId>choudou5.root</artifactId>
+        <artifactId>choudou5</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
     </parent>
 

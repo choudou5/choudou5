@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.choudou5</groupId>
-	<artifactId>choudou5.root</artifactId>
-	<name>choudou5.root</name>
+	<artifactId>choudou5</artifactId>
+	<name>choudou5</name>
 	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
@@ -15,15 +15,14 @@
 
 	<modules>
 		<module>choudou5.doc</module>
-		<module>choudou5.root.abstract</module>
-		<module>choudou5.root.cache</module>
-		<module>choudou5.root.cloud</module>
-		<module>choudou5.root.flow</module>
-		<module>choudou5.root.message</module>
-		<module>choudou5.root.nosql</module>
-		<module>choudou5.root.search</module>
-		<module>choudou5.root.security</module>
-		<module>choudou5.root.file</module>
+		<module>choudou5.cache</module>
+		<module>choudou5.cloud</module>
+		<module>choudou5.flow</module>
+		<module>choudou5.message</module>
+		<module>choudou5.nosql</module>
+		<module>choudou5.search</module>
+		<module>choudou5.security</module>
+		<module>choudou5.file</module>
 	</modules>
 
 
