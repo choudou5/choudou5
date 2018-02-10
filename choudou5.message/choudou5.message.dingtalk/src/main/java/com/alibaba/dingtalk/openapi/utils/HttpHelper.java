@@ -1,8 +1,5 @@
 package com.alibaba.dingtalk.openapi.utils;
 
-import cn.hutool.core.map.MapBuilder;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
@@ -11,11 +8,12 @@ import com.alibaba.dingtalk.openapi.OApiException;
 import com.alibaba.dingtalk.openapi.auth.AuthHelper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.choudou5.base.util.MapUtil;
+import com.choudou5.base.util.StrUtil;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

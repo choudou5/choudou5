@@ -1,7 +1,8 @@
 package com.alibaba.dingtalk.openapi.chatbot.message;
 
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
+
+import com.choudou5.base.util.JsonUtil;
+import com.choudou5.base.util.StrUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +71,6 @@ public class TextMessage implements Message {
             atItems.put("isAtAll", isAtAll);
         }
         items.put("at", atItems);
-
-        return JSON.toJSONString(items);
+        return JsonUtil.toStr(items);
     }
 }

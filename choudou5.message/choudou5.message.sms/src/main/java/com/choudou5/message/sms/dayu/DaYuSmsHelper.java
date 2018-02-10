@@ -1,11 +1,5 @@
 package com.choudou5.message.sms.dayu;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;
@@ -15,10 +9,15 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.choudou5.base.mapper.BeanMapper;
+import com.choudou5.base.util.AssertUtil;
+import com.choudou5.base.util.CollUtil;
+import com.choudou5.base.util.JsonUtil;
+import com.choudou5.base.util.StrUtil;
 import com.choudou5.message.sms.SmsHelper;
-import com.choudou5.message.sms.model.SmsReq;
 import com.choudou5.message.sms.model.SmsQueryReq;
 import com.choudou5.message.sms.model.SmsQueryResp;
+import com.choudou5.message.sms.model.SmsReq;
 import com.choudou5.message.sms.model.SmsSendResp;
 
 import java.util.Arrays;
@@ -66,10 +65,10 @@ public class DaYuSmsHelper implements SmsHelper {
 
     @Override
     public SmsSendResp send(SmsReq message, List<String> phoneList) {
-        if(CollectionUtil.isEmpty(phoneList))
-            Assert.notEmpty(phoneList, "发送号码不能为空");
+        if(CollUtil.isEmpty(phoneList))
+            AssertUtil.notEmpty(phoneList, "发送号码不能为空");
         if(phoneList.size() > 1000)
-            Assert.notEmpty(phoneList, "批量发送号码个数不能超过1000");
+            AssertUtil.notEmpty(phoneList, "批量发送号码个数不能超过1000");
         try {
             //组装请求对象
             SendSmsRequest request = new SendSmsRequest();
@@ -88,8 +87,8 @@ public class DaYuSmsHelper implements SmsHelper {
             request.setOutId(message.getBizId());
             //请求失败这里会抛ClientException异常
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
-            System.out.println(JSONUtil.toJsonStr(sendSmsResponse));
-            SmsSendResp resp = JSONUtil.toBean(JSONUtil.parseObj(sendSmsResponse), SmsSendResp.class);
+            System.out.println(JsonUtil.toStr(sendSmsResponse));
+            SmsSendResp resp = BeanMapper.map(sendSmsResponse, SmsSendResp.class);
             //请求成功
             if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
                 resp.setSuccess(true);
@@ -124,7 +123,7 @@ public class DaYuSmsHelper implements SmsHelper {
             //hint 此处可能会抛出异常，注意catch
             QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);
             //获取返回结果
-            SmsQueryResp resp = JSONUtil.toBean(JSONUtil.parseObj(querySendDetailsResponse), SmsQueryResp.class);
+            SmsQueryResp resp = BeanMapper.map(querySendDetailsResponse, SmsQueryResp.class);
             if(querySendDetailsResponse.getCode() != null && querySendDetailsResponse.getCode().equals("OK")){
                 resp.setSuccess(true);
             }

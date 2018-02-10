@@ -1,10 +1,10 @@
 package com.choudou5.file.store.oss;
 
-import cn.hutool.core.io.FileUtil;
 import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
+import com.choudou5.base.util.FileUtil;
 import com.choudou5.file.store.FileHelper;
 
 import java.io.File;

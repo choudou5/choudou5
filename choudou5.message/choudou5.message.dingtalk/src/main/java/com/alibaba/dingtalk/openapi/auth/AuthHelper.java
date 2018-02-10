@@ -1,12 +1,6 @@
 package com.alibaba.dingtalk.openapi.auth;
 
-import cn.hutool.core.io.FileUtil;
-import com.alibaba.dingtalk.openapi.Env;
 import com.alibaba.dingtalk.openapi.OApiException;
-import com.alibaba.dingtalk.openapi.utils.HttpHelper;
-import com.alibaba.fastjson.JSONObject;
-import com.dingtalk.open.client.ServiceFactory;
-import com.dingtalk.open.client.api.service.corp.CorpConnectionService;
 
 /**
  * AccessToken和jsticket的获取封装

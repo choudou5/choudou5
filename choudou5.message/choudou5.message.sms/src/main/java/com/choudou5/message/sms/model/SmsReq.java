@@ -1,6 +1,6 @@
 package com.choudou5.message.sms.model;
 
-import cn.hutool.json.JSONUtil;
+import com.choudou5.base.util.JsonUtil;
 
 import java.io.Serializable;
 
@@ -29,7 +29,7 @@ public class SmsReq implements Serializable {
 
     public SmsReq(String tplCode, SmsCode smsCode, String bizId) {
         this.tplCode = tplCode;
-        this.tplJsonParam = JSONUtil.toJsonStr(smsCode);
+        this.tplJsonParam = JsonUtil.toStr(smsCode);
         this.bizId = bizId;
     }
 

@@ -1,7 +1,5 @@
 package com.alibaba.dingtalk.openapi.media;
 
-import cn.hutool.core.io.FileUtil;
-import com.alibaba.dingtalk.openapi.Env;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.open.client.ServiceFactory;

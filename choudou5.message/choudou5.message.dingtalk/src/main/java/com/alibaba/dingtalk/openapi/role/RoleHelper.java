@@ -1,9 +1,7 @@
 package com.alibaba.dingtalk.openapi.role;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.dingtalk.openapi.Env;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.choudou5.base.util.StrUtil;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.*;

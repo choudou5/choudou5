@@ -1,10 +1,10 @@
 package com.alibaba.dingtalk.openapi;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.dingtalk.openapi.auth.AuthService;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSONObject;
+import com.choudou5.base.util.FileUtil;
+import com.choudou5.base.util.StrUtil;
 
 /**
  * @Name：认证服务实现

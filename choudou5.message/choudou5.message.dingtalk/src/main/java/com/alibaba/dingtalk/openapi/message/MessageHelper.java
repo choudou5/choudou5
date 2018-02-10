@@ -1,11 +1,10 @@
 package com.alibaba.dingtalk.openapi.message;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.choudou5.base.util.StrUtil;
 import com.dingtalk.open.client.ServiceFactory;
-import com.dingtalk.open.client.api.model.corp.MessageBody;
 import com.dingtalk.open.client.api.model.corp.MessageSendResult;
 import com.dingtalk.open.client.api.service.corp.MessageService;
 

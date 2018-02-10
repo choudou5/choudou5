@@ -1,10 +1,10 @@
 package com.choudou5.root.security.certification.juhe;
 
-import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.choudou5.base.util.AssertUtil;
+import com.choudou5.base.util.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +27,10 @@ public class JuHeUtil {
      * @throws Exception
      */
     public boolean checkRealIdentity(String idCard, String realName, String appKey) throws Exception{
-        Assert.notNull(idCard, "身份证不能为空!");
-        Assert.notNull(realName, "实名姓名不能为空!");
-        Assert.isTrue(IdcardUtil.isValidCard(idCard), "非有效身份证号码!");
-        Assert.notNull(appKey, "appKey参数不能为空!");
+        AssertUtil.notNull(idCard, "身份证不能为空!");
+        AssertUtil.notNull(realName, "实名姓名不能为空!");
+        AssertUtil.isTrue(IdcardUtil.isValidCard(idCard), "非有效身份证号码!");
+        AssertUtil.notNull(appKey, "appKey参数不能为空!");
         Map<String, Object> params = new HashMap<>();
         params.put("key", appKey);
         params.put("idcard", idCard);
@@ -38,18 +38,19 @@ public class JuHeUtil {
         String response =null;
         try {
             response= HttpUtil.get(IDENTITY_API, params, 1000*5);
-            Assert.notNull(response, "实名认证接口 返回空!");
+            AssertUtil.notNull(response, "实名认证接口 返回空!");
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.notNull(null, "实名认证接口 请求出错:" + e.getMessage());
+            AssertUtil.notNull(null, "实名认证接口 请求出错:" + e.getMessage());
         }
-        JSONObject json = JSONUtil.parseObj(response);
-        if(json.getInt("error_code") == 0){ //查询成功
+
+        JSONObject json = JsonUtil.toJsonObj(response);
+        if(json.getIntValue("error_code") == 0){ //查询成功
             //1：匹配 2：不匹配
-            int status = json.getJSONObject("result").getInt("res");
+            int status = json.getJSONObject("result").getIntValue("res");
             return status == 1;/*1：匹配 2：不匹配*/
         }else {
-            Assert.isTrue(false, "实名接口返回错误:" + json.getStr("reason"));
+            AssertUtil.isTrue(false, "实名接口返回错误:" + json.getString("reason"));
             return false;
         }
     }

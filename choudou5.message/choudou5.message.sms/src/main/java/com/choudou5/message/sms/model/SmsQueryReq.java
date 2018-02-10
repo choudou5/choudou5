@@ -1,11 +1,9 @@
 package com.choudou5.message.sms.model;
 
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.json.JSONUtil;
+
+import com.choudou5.base.util.DateUtil;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Name：短信查询
@@ -41,7 +39,7 @@ public class SmsQueryReq implements Serializable {
     }
 
     public SmsQueryReq(Long pageSize, Long currentPage) {
-        this.sendDate = DateUtil.format(DateUtil.yesterday(), DatePattern.PURE_DATE_FORMAT);
+        this.sendDate = DateUtil.getYesterDayShort();
         this.pageSize = pageSize;
         this.currentPage = currentPage;
     }

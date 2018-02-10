@@ -1,22 +1,13 @@
 package com.alibaba.dingtalk.openapi.message.chat;
 
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.dingtalk.openapi.message.LightAppMessageDelivery;
 import com.alibaba.dingtalk.openapi.message.Message;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dingtalk.open.client.ServiceFactory;
+import com.choudou5.base.util.JsonUtil;
 import com.dingtalk.open.client.api.model.corp.ChatInfo;
-import com.dingtalk.open.client.api.model.corp.MessageBody;
-import com.dingtalk.open.client.api.model.corp.MessageSendResult;
-import com.dingtalk.open.client.api.model.corp.MessageType;
-import com.dingtalk.open.client.api.service.corp.ChatService;
-import com.dingtalk.open.client.api.service.corp.MessageService;
-import com.dingtalk.open.client.common.ParamAttr;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,7 +64,7 @@ public class ChatGroupHelper {
         Map params = new HashMap<>();
         params.put("chatid", chatid);
         params.put("msgtype", message.type());
-        params.put(message.type(), JSON.toJSONString(message));
+        params.put(message.type(), JsonUtil.toStr(message));
         HttpHelper.httpPost(url, params);
     }
 

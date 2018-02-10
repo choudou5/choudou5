@@ -2,14 +2,11 @@ package com.alibaba.dingtalk.openapi;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.dingtalk.openapi.role.RoleHelper;
-import com.alibaba.dingtalk.openapi.user.UserHelper;
-import com.dingtalk.api.response.CorpRoleGetrolegroupResponse;
+import com.choudou5.base.util.CollUtil;
 import com.dingtalk.api.response.CorpRoleListResponse;
 import com.dingtalk.api.response.CorpRoleSimplelistResponse;
-import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,11 +23,11 @@ public class RoleApiTest extends BaseApiTest {
     public void mainTest() throws Exception {
 
         List<CorpRoleListResponse.RoleGroups> list = RoleHelper.getRoleList(accessToken, 100, 0);
-        if(CollectionUtil.isNotEmpty(list)){
+        if(CollUtil.isNotEmpty(list)){
             for (CorpRoleListResponse.RoleGroups roleGroups : list) {
                 log("角色组："+roleGroups.getGroupName());
                 List<CorpRoleListResponse.Roles> roles = roleGroups.getRoles();
-                if(CollectionUtil.isNotEmpty(roles)){
+                if(CollUtil.isNotEmpty(roles)){
                     for (CorpRoleListResponse.Roles role : roles) {
                         log(role.getId()+" , "+role.getRoleName(), " - 用户列表：");
                         List<CorpRoleSimplelistResponse.EmpSimpleList> userList = RoleHelper.getUserIdListByRoleId(accessToken, role.getId(), 100, 0);

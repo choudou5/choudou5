@@ -1,7 +1,7 @@
 package com.alibaba.dingtalk.openapi.chatbot.message;
 
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
+import com.choudou5.base.util.JsonUtil;
+import com.choudou5.base.util.StrUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -111,7 +111,6 @@ public class SingleTargetActionCardMessage implements Message {
         actionCardContent.put("singleURL", singleURL);
 
         items.put("actionCard", actionCardContent);
-
-        return JSON.toJSONString(items);
+        return JsonUtil.toStr(items);
     }
 }

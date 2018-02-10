@@ -1,7 +1,8 @@
 package com.alibaba.dingtalk.openapi.chatbot.message;
 
-import cn.hutool.core.util.StrUtil;
+
 import com.alibaba.fastjson.JSON;
+import com.choudou5.base.util.StrUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

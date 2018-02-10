@@ -10,11 +10,15 @@
 
 	<properties>
 		<project.version>0.0.1</project.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<slf4j-api.version>1.7.25</slf4j-api.version>
+		<dozer.version>5.5.1</dozer.version>
+		<fastjson.version>1.2.24</fastjson.version>
 		<hutool.version>4.0.0</hutool.version>
 	</properties>
 
 	<modules>
-		<module>choudou5.doc</module>
+		<module>choudou5.base</module>
 		<module>choudou5.cache</module>
 		<module>choudou5.cloud</module>
 		<module>choudou5.flow</module>
@@ -33,17 +37,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-core</artifactId>
-			<version>${hutool.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-http</artifactId>
-			<version>${hutool.version}</version>
 		</dependency>
 
 	</dependencies>
