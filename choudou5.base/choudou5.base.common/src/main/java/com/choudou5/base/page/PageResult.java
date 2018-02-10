@@ -10,11 +10,11 @@ import java.util.List;
  * @Site：http://www.javasaas.top
  * @License：MIT
  */
-public class PageResult implements Serializable{
+public class PageResult<T> implements Serializable{
 
     protected int pageNo = 1;
     protected int pageSize = 10;
-    protected List result = null;
+    protected List<T> result = null;
     protected long totalCount = 0;
 
     public PageResult() {
@@ -35,7 +35,7 @@ public class PageResult implements Serializable{
         setTotalCount(totalCount);
     }
 
-    public PageResult(int pageSize, int pageNo, int totalCount, List docs) {
+    public PageResult(int pageSize, int pageNo, int totalCount, List<T> docs) {
         setPageSize(pageSize);
         setPageNo(pageNo);
         setTotalCount(totalCount);
