@@ -20,10 +20,10 @@ public class TreeHelper {
 
     public final static String ROOT_ID = "1";
 
-    private static Map<String, Object> getRoot(){
+    private static Map<String, Object> getRoot(String rootName){
         Map<String, Object> root = new LinkedHashMap<>();
         root.put("id", ROOT_ID);
-        root.put("text", "系统");
+        root.put("text", rootName);
         root.put("type", "root");
         return root;
     }
@@ -32,12 +32,13 @@ public class TreeHelper {
     /**
      * 构建树结构
      * @param list
+     * @param rootName 根名称
      * @return
      */
-    public static <T extends TreeNodeBo> Map<String, Object> buildTreeData(List<T> list){
+    public static <T extends TreeNodeBo> Map<String, Object> buildTreeData(List<T> list, String rootName){
+        Map<String, Object> root = getRoot(rootName);
         if(CollUtil.isEmpty(list))
-            return null;
-        Map<String, Object> root = getRoot();
+            return root;
         root.put("children", buildTree(ROOT_ID, list, 0));
         return root;
     }

@@ -63,6 +63,28 @@ public class AssertUtil {
     }
 
     /**
+     * 集合 不为空
+     * @param coll
+     * @param message
+     */
+    public static void isNotEmpty(Collection coll, String message ) {
+        if(CollUtil.isEmpty( coll ) ) {
+            throw new BizException( message );
+        }
+    }
+
+    /**
+     * 集合为空
+     * @param coll
+     * @param message
+     */
+    public static void isEmpty(Collection coll, String message ) {
+        if(CollUtil.isNotEmpty( coll ) ) {
+            throw new BizException( message );
+        }
+    }
+
+    /**
      * 是否长度为空的字符串
      * @param text - string
      * @param message
