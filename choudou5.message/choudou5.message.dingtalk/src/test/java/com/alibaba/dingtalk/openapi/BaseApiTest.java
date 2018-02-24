@@ -45,7 +45,7 @@ public class BaseApiTest {
         StringBuilder sb = new StringBuilder();
         for (Object o : msgs) {
             if (o != null) {
-                sb.append(JSON.toJSONString(o.toString()));
+                sb.append(JSON.toJSONString(o));
             }
         }
         System.out.println(sb.toString());

@@ -37,6 +37,11 @@
 			<artifactId>hutool-http</artifactId>
 			<version>${hutool.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-cache</artifactId>
+			<version>${hutool.version}</version>
+		</dependency>
 
 		<!-- json -->
 		<dependency>

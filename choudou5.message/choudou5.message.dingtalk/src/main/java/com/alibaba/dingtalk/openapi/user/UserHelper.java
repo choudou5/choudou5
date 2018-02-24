@@ -3,6 +3,8 @@ package com.alibaba.dingtalk.openapi.user;
 import com.alibaba.dingtalk.openapi.OApiException;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSONObject;
+import com.dingtalk.api.model.corp.CorpUserDetailExt;
+import com.dingtalk.api.model.corp.CorpUserDetailListExt;
 import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserBaseInfo;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
@@ -26,10 +28,10 @@ public class UserHelper {
      * @return
      * @throws Exception
      */
-    public static CorpUserDetail getUserInfo(String accessToken, String userId) throws Exception {
+    public static CorpUserDetailExt getUserInfo(String accessToken, String userId) throws Exception {
         String url = "/user/get?access_token=" + accessToken+"&userid="+userId;
         JSONObject response = HttpHelper.httpGet(url);
-        return response.toJavaObject(CorpUserDetail.class);
+        return response.toJavaObject(CorpUserDetailExt.class);
 
     }
 
@@ -96,11 +98,11 @@ public class UserHelper {
 
 
     //获取部门成员（详情）
-    public static CorpUserDetailList getUserDetails(String accessToken, long departmentId, Long offset, Integer size)
+    public static CorpUserDetailListExt getUserDetails(String accessToken, long departmentId, Long offset, Integer size)
             throws Exception {
         String url = "/user/list?access_token=" + accessToken+"&department_id="+departmentId+"&offset="+offset+"&size="+size;
         JSONObject response = HttpHelper.httpGet(url);
-        return response.toJavaObject(CorpUserDetailList.class);
+        return response.toJavaObject(CorpUserDetailListExt.class);
     }
 
     public static List<CorpUserBaseInfo> getAdminList(String accessToken)

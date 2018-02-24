@@ -13,7 +13,20 @@
 
 
 	<dependencies>
-	
+
+		<!-- ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache-core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.choudou5</groupId>
+			<artifactId>choudou5.base.common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 
 </project>

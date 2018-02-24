@@ -23,11 +23,13 @@ import java.util.Map;
 public class HttpHelper {
 
 	public static JSONObject httpGet(String url) throws OApiException{
+        if(url.startsWith("http"))
+            url = StrUtil.subAfter(url, Env.OAPI_HOST, true);
         String response = null;
         try {
             response = HttpUtil.get(Env.OAPI_HOST+url, 2000);
         } catch (Exception e) {
-            System.out.println("request url=" + url + ", exception, msg=" + e.getMessage());
+            System.out.println("request url=" + Env.OAPI_HOST+url + ", exception, msg=" + e.getMessage());
             e.printStackTrace();
             throw new OApiException(500, e.getMessage());
         }
@@ -52,6 +54,8 @@ public class HttpHelper {
     }
 
 	public static JSONObject httpPost(String url, Object data) throws OApiException {
+        if(url.startsWith("http"))
+            url = StrUtil.subAfter(url, Env.OAPI_HOST, true);
         HttpRequest request = HttpUtil.createPost(Env.OAPI_HOST+url);
         request.header("Content-Type", "application/json; charset=utf-8");
         request.timeout(2000);
@@ -81,7 +85,7 @@ public class HttpHelper {
                 throw new OApiException(500, response.body());
             }
         } catch (Exception e) {
-            System.out.println("request url=" + url + ", exception, msg=" + e.getMessage());
+            System.out.println("request url=" + Env.OAPI_HOST+url + ", exception, msg=" + e.getMessage());
             e.printStackTrace();
             throw new OApiException(500, e.getMessage());
         }

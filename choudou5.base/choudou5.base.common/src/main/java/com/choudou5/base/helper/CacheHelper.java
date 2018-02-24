@@ -21,9 +21,11 @@ public interface CacheHelper {
 
     String get(String cacheKey) throws BizException;
 
-    String getIntValue(String cacheKey) throws BizException;
+    Object getObj(String cacheKey) throws BizException;
 
-    String getLongValue(String cacheKey) throws BizException;
+    Integer getInt(String cacheKey) throws BizException;
+
+    Long getLong(String cacheKey) throws BizException;
 
     <T extends Serializable> T get(String cacheKey, Class<T> classz) throws BizException;
 

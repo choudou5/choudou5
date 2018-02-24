@@ -44,12 +44,13 @@ public class DepartmentHelper {
     /**
      * 获取部门列表
      */
-    public static List<DepartmentExt> listDepartments(String accessToken, String parentDeptId)
+    public static List<Department> listDepartments(String accessToken, String parentDeptId)
             throws Exception {
         String url = "/department/list?access_token=" + accessToken+"&id="+parentDeptId;
         JSONObject response = HttpHelper.httpGet(url);
-        return response.getJSONArray("department").toJavaList(DepartmentExt.class);
+        return response.getJSONArray("department").toJavaList(Department.class);
     }
+
 
     /**
      * 获取部门父节点数组

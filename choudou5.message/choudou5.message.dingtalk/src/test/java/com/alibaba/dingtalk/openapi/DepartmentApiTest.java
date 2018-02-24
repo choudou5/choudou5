@@ -1,11 +1,12 @@
 package com.alibaba.dingtalk.openapi;
 
-import com.alibaba.dingtalk.openapi.department.DepartmentExt;
 import com.alibaba.dingtalk.openapi.department.DepartmentHelper;
 import com.alibaba.dingtalk.openapi.user.UserHelper;
 import com.alibaba.fastjson.JSON;
+import com.dingtalk.api.model.corp.CorpUserDetailListExt;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetailList;
 import com.dingtalk.open.client.api.model.corp.CorpUserList;
+import com.dingtalk.open.client.api.model.corp.Department;
 import com.dingtalk.open.client.api.model.corp.DepartmentDetail;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class DepartmentApiTest extends BaseApiTest {
         getDeptDetail(departmentId+"");
 
         // 获取部门列表
-        List<DepartmentExt> list = DepartmentHelper.listDepartments(accessToken, parentDeptId);
+        List<Department> list = DepartmentHelper.listDepartments(accessToken, parentDeptId);
         log("成功获取部门列表", list);
         //更新部门
         updateDepartment(departmentId);
@@ -40,7 +41,7 @@ public class DepartmentApiTest extends BaseApiTest {
         log("成功获取部门成员", "部门成员user=", userList.getUserlist());
 
         // 获取部门成员（详情）
-        CorpUserDetailList userList2 = UserHelper.getUserDetails(accessToken, departmentId, null, null);
+        CorpUserDetailListExt userList2 = UserHelper.getUserDetails(accessToken, departmentId, null, null);
         log("成功获取部门成员详情", "部门成员详情user=", userList2.getUserlist());
 
         //删除部门
@@ -88,16 +89,16 @@ public class DepartmentApiTest extends BaseApiTest {
     //部门列表
     @Test
     public void getDepartmentList() throws Exception {
-        List<DepartmentExt> departments = DepartmentHelper.listDepartments(accessToken, parentDeptId);
+        List<Department> departments = DepartmentHelper.listDepartments(accessToken, parentDeptId);
         log("部门总数:", departments.size());
-        for (DepartmentExt department : departments) {
+        for (Department department : departments) {
             log("部门信息:" + JSON.toJSONString(department));
             long offset = 0;
             int size = 50;
-            CorpUserDetailList corpUserList = new CorpUserDetailList();
+            CorpUserDetailListExt corpUserList = new CorpUserDetailListExt();
             while (true) {
                 corpUserList = UserHelper.getUserDetails(accessToken, department.getId(), offset, size);
-                department.addUserList(corpUserList.getUserlist());
+                log(corpUserList.getUserlist());
                 if (Boolean.TRUE.equals(corpUserList.isHasMore())) {
                     offset += size;
                 } else {

@@ -1,6 +1,7 @@
 package com.alibaba.dingtalk.openapi;
 
 import com.alibaba.dingtalk.openapi.user.UserHelper;
+import com.dingtalk.api.model.corp.CorpUserDetailExt;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ public class UserApiTest extends BaseApiTest {
         log("成功更新成员", "成员信息=", userDetail);
 
         // 获取成员
-        CorpUserDetail userDetail11 = UserHelper.getUserInfo(accessToken, userDetail.getUserid());
+        CorpUserDetailExt userDetail11 = UserHelper.getUserInfo(accessToken, userDetail.getUserid());
         log("成功获取成员", "成员userid=", userDetail11.getUserid());
 
         //删除成员
