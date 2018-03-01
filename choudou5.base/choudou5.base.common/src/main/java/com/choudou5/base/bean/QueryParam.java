@@ -70,7 +70,8 @@ public class QueryParam implements Serializable {
         this.extendParams.remove(extendParamKey);
     }
 
-    public void setDefaultParam(int pageNo, int pageSize, String orderBy, String order) {
+
+    public void setDefOrder(String orderBy, String order) {
         OrderBean orderBean = this.getOrderBean();
         if(orderBean == null) {
         } else {
@@ -80,6 +81,10 @@ public class QueryParam implements Serializable {
                 orderBean.setOrder(StrUtil.isBlank(order)?"DESC":order);
             this.setOrderBean(orderBean);
         }
+    }
+
+    public void setDefParam(int pageNo, int pageSize, String orderBy, String order) {
+        setDefOrder(orderBy, order);
         PageBean pageBean = this.getPageBean();
         if(pageBean == null) {
             pageBean = new PageBean(pageNo, pageSize);
@@ -87,11 +92,13 @@ public class QueryParam implements Serializable {
         }
     }
 
-    public void setDefaultPage() {
+    public void setDefPage() {
         PageBean pageBean = this.getPageBean();
         if(pageBean == null) {
             this.setPageBean(new PageBean(1, PageBean.DEF_PAGE_SIZE));
         }
     }
+
+
 
 }

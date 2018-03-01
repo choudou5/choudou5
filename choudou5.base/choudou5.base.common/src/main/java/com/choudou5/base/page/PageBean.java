@@ -4,18 +4,16 @@ import java.io.Serializable;
 
 /**
  * @Name：分页Bean
- * @Author：xuhaowende@sina.cn
- * @Date：2018-01-13 16:27
- * @Site：http://solrhome.com
- * @License：MIT
+ * @Author：xuhaowen
+ * @Date：2018-01-13
  */
 public class PageBean implements Serializable {
 
     public static final Integer MAX_PAGE_SIZE = 100;	// 每页最大分页数大小限制
     public static final Integer DEF_PAGE_SIZE = 10;
-
-    private int pageNo = 1;
-    private int pageSize = 10;
+    public static final Integer DEF_PAGE_NO = 1;
+    private Integer pageNo = DEF_PAGE_NO;
+    private Integer pageSize = DEF_PAGE_SIZE;
 
     public PageBean() {
     }
@@ -29,21 +27,25 @@ public class PageBean implements Serializable {
         this.pageSize = pageSize;
     }
 
-    public int getPageNo() {
+    public Integer getPageNo() {
         return pageNo;
     }
 
-    public void setPageNo(int pageNo) {
+    public void setPageNo(Integer pageNo) {
+        if(pageNo == null)
+            pageNo = DEF_PAGE_NO;
         this.pageNo = pageNo;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
+        if(pageSize == null)
+            pageSize = DEF_PAGE_SIZE;
         if (pageSize < 1) {
-            pageSize = 1;
+            pageSize = DEF_PAGE_SIZE;
         }else if(pageSize > MAX_PAGE_SIZE){
             pageSize = MAX_PAGE_SIZE;
         }

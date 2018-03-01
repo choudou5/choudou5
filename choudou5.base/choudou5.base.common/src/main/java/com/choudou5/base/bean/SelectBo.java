@@ -24,6 +24,12 @@ public class SelectBo implements Serializable {
         this.value = value;
     }
 
+    public SelectBo(String text, String value, boolean selected) {
+        this.text = text;
+        this.value = value;
+        this.selected = selected;
+    }
+
     public String getText() {
         return text;
     }

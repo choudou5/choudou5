@@ -1,5 +1,7 @@
 package com.choudou5.base.bean;
 
+import com.choudou5.base.util.StrUtil;
+
 import java.io.Serializable;
 
 /**
@@ -34,7 +36,7 @@ public class OrderBean implements Serializable {
     }
 
     public String getOrderBy() {
-        return orderBy;
+        return StrUtil.isBlank(orderBy)?null:orderBy;
     }
 
     public void setOrderBy(String orderBy) {
@@ -42,7 +44,7 @@ public class OrderBean implements Serializable {
     }
 
     public String getOrder() {
-        return order;
+        return StrUtil.isBlank(order)?null:order;
     }
 
     public void setOrder(String order) {
