@@ -1,14 +1,13 @@
 package com.choudou5.base.page;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @Name：分页实体
- * @Author：xuhaowende@sina.cn
- * @Date：2018-01-13 15:58
- * @Site：http://www.javasaas.top
- * @License：MIT
+ * @Author：xuhaowen
+ * @Date：2018-01-13
  */
 public class PageResult<T> implements Serializable{
 
@@ -16,6 +15,8 @@ public class PageResult<T> implements Serializable{
     protected int pageSize = 10;
     protected List<T> result = null;
     protected long totalCount = 0;
+    protected int length = 5;// 显示页面长度
+    protected int rangeEnd = 0;// 范围页尾
 
     public PageResult() {
     }
@@ -142,4 +143,39 @@ public class PageResult<T> implements Serializable{
             return pageNo;
     }
 
+    public int getRangeEnd() {
+        return rangeEnd;
+    }
+
+    /**
+     * 获得 分页范围数
+     */
+    public List<Integer> getPageRange() {
+        List<Integer> ranges = new ArrayList<Integer>(length);
+        int firstPage = 1;
+        int totalPage = getIntTotalPages();
+        int begin = pageNo - (length / 2);
+        if (begin < firstPage)
+            begin = firstPage;
+
+        int end = begin + length - 1;
+        if (end >= totalPage) {
+            end = totalPage;
+            begin = end - length + 1;
+            if (begin < firstPage) {
+                begin = firstPage;
+            }
+        }
+        if (begin > firstPage){
+            int i = 0;
+            for (i = firstPage; i < firstPage + 1 && i < begin; i++) {
+                ranges.add(i);
+            }
+        }
+        for (int i = begin; i <= end; i++) {
+            ranges.add(i);
+        }
+        rangeEnd = end;
+        return ranges;
+    }
 }
