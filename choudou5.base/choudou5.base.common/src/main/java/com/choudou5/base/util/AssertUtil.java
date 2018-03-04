@@ -3,6 +3,7 @@ package com.choudou5.base.util;
 
 import com.choudou5.base.exception.BizException;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -79,7 +80,7 @@ public class AssertUtil {
      * @param message
      */
     public static void isEmpty(Collection coll, String message ) {
-        if(CollUtil.isNotEmpty( coll ) ) {
+        if(CollUtil.isNotEmpty(coll) ) {
             throw new BizException( message );
         }
     }
@@ -90,7 +91,29 @@ public class AssertUtil {
      * @param message
      */
     public static void isNotEmpty( String text, String message ) {
-        if(StrUtil.isEmpty( text ) ) {
+        if(StrUtil.isEmpty(text) ) {
+            throw new BizException( message );
+        }
+    }
+
+    /**
+     * 是否长度为空的字符串
+     * @param text - string
+     * @param message
+     */
+    public static void isNotBlank( String text, String message ) {
+        if(StrUtil.isBlank(text) ) {
+            throw new BizException( message );
+        }
+    }
+
+    /**
+     * 是否长度为空的字符串
+     * @param text - string
+     * @param message
+     */
+    public static void isNotEmpty(Serializable text, String message ) {
+        if(text == null || text.toString().length()==0) {
             throw new BizException( message );
         }
     }

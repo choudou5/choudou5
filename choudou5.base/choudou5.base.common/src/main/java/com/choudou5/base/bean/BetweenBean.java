@@ -1,13 +1,15 @@
 package com.choudou5.base.bean;
 
+import com.choudou5.base.util.DateUtil;
+import com.choudou5.base.util.StrUtil;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Name：范围 Bean
- * @Author：xuhaowende@sina.cn
- * @Date：2018-01-13 15:48
- * @Site：http://www.javasaas.top
- * @License：MIT
+ * @Author：xuhaowen
+ * @Date：2018-01-13
  */
 public class BetweenBean implements Serializable {
 
@@ -37,4 +39,37 @@ public class BetweenBean implements Serializable {
     public void setEnd(Object end) {
         this.end = end;
     }
+
+    public String toSql() {
+        return toSql(null);
+    }
+
+    public String toSql(String pattern) {
+        int type = 0;
+        if(begin != null)
+            type += 1;
+        if(end != null)
+            type += 2;
+
+        if(type==1){
+            return " >= "+getStrVal(begin, pattern);
+        }else if(type==2){
+            return " <= "+getStrVal(end, pattern);
+        }else{
+            return " BETWEEN "+getStrVal(begin, pattern)+" AND "+getStrVal(end, pattern);
+        }
+    }
+
+    private String getStrVal(Object objVal, String pattern){
+        if(objVal instanceof String){
+            return "\""+objVal.toString()+"\"";
+        }if(objVal instanceof Date){
+            if(StrUtil.isBlank(pattern))
+                pattern = "yyyy-MM-dd HH:mm:ss";
+            return "\""+DateUtil.format((Date)objVal, pattern)+"\"";
+        }else{
+            return objVal.toString();
+        }
+    }
+
 }
