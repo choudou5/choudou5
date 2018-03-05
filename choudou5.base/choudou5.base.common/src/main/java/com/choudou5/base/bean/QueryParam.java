@@ -72,30 +72,48 @@ public class QueryParam implements Serializable {
 
 
     public void setDefParam(int pageNo, int pageSize, String orderBy, String order) {
-        setPageParam(pageNo, pageSize);
-        setOrderParam(orderBy, order);
+        setPageDefParam(pageNo, pageSize);
+        setOrderDefParam(orderBy, order);
     }
 
+    public void setOrderDefParam(String orderBy, String order) {
+        setOrderParam(orderBy, order, true);
+    }
     public void setOrderParam(String orderBy, String order) {
+        setOrderParam(orderBy, order, false);
+    }
+
+    private void setOrderParam(String orderBy, String order, boolean isSetDef) {
         OrderBean orderBean = this.getOrderBean();
         if(orderBean == null) {
             setOrderBean(new OrderBean(orderBy, order));
         } else {
-            orderBean.setOrderBy(orderBy);
-            orderBean.setOrder(StrUtil.isBlank(order)?"DESC":order);
+            if(!isSetDef){
+                orderBean.setOrderBy(orderBy);
+                orderBean.setOrder(StrUtil.isBlank(order) ? "DESC" : order);
+            }
         }
     }
 
+    public void setPageDefParam(int pageNo, int pageSize) {
+        setPageParam(pageNo, pageSize, true);
+    }
     public void setPageParam(int pageNo, int pageSize) {
+        setPageParam(pageNo, pageSize, false);
+    }
+
+    private void setPageParam(int pageNo, int pageSize, boolean isSetDef) {
         PageBean pageBean = this.getPageBean();
         if(pageBean == null) {
-            pageBean = new PageBean(pageNo, pageSize);
-            this.setPageBean(pageBean);
+            this.setPageBean(new PageBean(pageNo, pageSize));
         }else{
-            pageBean.setPageNo(pageNo);
-            pageBean.setPageSize(pageSize);
+            if(!isSetDef){
+                pageBean.setPageNo(pageNo);
+                pageBean.setPageSize(pageSize);
+            }
         }
     }
+
 
     public void setDefPage() {
         PageBean pageBean = this.getPageBean();
