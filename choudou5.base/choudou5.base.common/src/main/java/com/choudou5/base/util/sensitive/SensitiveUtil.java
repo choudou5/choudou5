@@ -15,7 +15,7 @@ import java.util.concurrent.Callable;
  * @author Looly
  * @author2  xuhaowen
  */
-public final class SensitiveUtil {
+public class SensitiveUtil {
 
     public static final char DEFAULT_SEPARATOR = StrUtil.C_COMMA;
 
@@ -23,10 +23,13 @@ public final class SensitiveUtil {
 
     // get/set
     private static CacheHelper cache;
-    public static CacheHelper getCache() {
+    public CacheHelper getCache() {
         return cache;
     }
-    public static void setCache(CacheHelper cache) {
+    public void setCache(CacheHelper cache) {
+        SensitiveUtil.cache = cache;
+    }
+    protected static void staticSetCache(CacheHelper cache) {
         SensitiveUtil.cache = cache;
     }
 
