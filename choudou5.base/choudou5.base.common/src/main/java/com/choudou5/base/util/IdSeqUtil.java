@@ -47,6 +47,17 @@ public class IdSeqUtil {
     }
 
     /**
+     * 深度 加密ID
+     * @param id
+     * @return
+     */
+    public static String depthEncryptId(String id){
+        String code = GzipUtil.compress(id);
+        return encryptId(code);
+    }
+
+
+    /**
      * 解密ID
      * @param id
      * @return
@@ -62,4 +73,26 @@ public class IdSeqUtil {
         return value;
     }
 
+
+    /**
+     * 解密ID
+     * @param id
+     * @return
+     */
+    public static String depthDecryptId(String id) {
+        String code = decryptId(id.replace(" ", "+"));
+        return GzipUtil.uncompress(code);
+    }
+
+    public static void main(String[] args) {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            String code = depthEncryptId("123456" + i);
+            System.out.println(code);
+            String value = depthDecryptId(code);
+            System.out.println(value);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("time:"+(end-start));
+    }
 }

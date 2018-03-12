@@ -28,13 +28,15 @@ public class EhCacheUtil implements CacheHelper {
     private static EhCacheUtil ehCache;
 
     public EhCacheUtil(String path) {
-        URL url = getClass().getResource(path);
-        manager = CacheManager.create(url);
+        if(manager == null){
+            URL url = getClass().getResource(path);
+            manager = CacheManager.create(url);
+        }
     }
 
     public static EhCacheUtil getInstance() {
-        if (ehCache== null) {
-            ehCache= new EhCacheUtil(CONF_PATH);
+        if (ehCache == null) {
+            ehCache = new EhCacheUtil(CONF_PATH);
         }
         return ehCache;
     }
