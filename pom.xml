@@ -28,6 +28,7 @@
 		<module>choudou5.search</module>
 		<module>choudou5.security</module>
 		<module>choudou5.file</module>
+		<module>choudou5.rpc</module>
 	</modules>
 
 

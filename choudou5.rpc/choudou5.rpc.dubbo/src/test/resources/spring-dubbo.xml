@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+        default-lazy-init="false">
+
+
+    <dubbo:application name="dubbo-admin" />
+    <dubbo:registry protocol="zookeeper" address="zookeeper://192.168.36.240:2181;192.168.36.241:2181" group="dev" check="false" file="/data/data/dubbo/dubbo-admin.cache" />
+    <dubbo:protocol name="dubbo" port="40600" />
+    <dubbo:provider delay="-1" timeout="15000" retries="0"/>
+    <dubbo:consumer check="false"/>
+
+    <!-- 注入bean -->
+    <bean id="registryServerSync" class="com.choudou5.rpc.dubbo.service.impl.RegistryServerSync" />
+    <bean id="overrideService" class="com.choudou5.rpc.dubbo.service.impl.OverrideServiceImpl" >
+        <property name="sync" ref="registryServerSync"/>
+    </bean>
+    <bean id="providerService" class="com.choudou5.rpc.dubbo.service.impl.ProviderServiceImpl">
+        <property name="sync" ref="registryServerSync"/>
+    </bean>
+
+</beans>
