@@ -1,11 +1,12 @@
 package com.choudou5.rpc.dubbo.service;
 
 import com.alibaba.dubbo.config.spring.ReferenceBean;
+import com.lianj.commons.util.AssertUtil;
+import com.lianj.user.center.info.service.UserChannelService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-
-import java.util.List;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @Name：ProviderServiceTest 说明
@@ -21,20 +22,28 @@ public class ProviderServiceTest extends BaseTest{
 
     @Test
     public void findAddresses(){
-
         print(providerService.findAll());
+
+        print(providerService.findByService("com.lianj.payment.center.invoice.service.IPayInvoiceDataService:1.0.0"));
+
+        print(providerService.findAddressesByService("com.lianj.payment.center.invoice.service.IPayInvoiceDataService:1.0.0"));
     }
 
     @Test
     public void getService(){
-        RemoteLogService service = getService(null, "123", 123, RemoteLogService.class);
-        service.findList(10);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-dubbo.xml");
+        UserChannelService service = getService(applicationContext, "192.168.36.225", 21880, UserChannelService.class);
+        AssertUtil.isNotNull(service, "服务找不到");
+        System.out.println(11111);
+        print(service.selectAll());
+        System.out.println(22222);
     }
 
-    private RemoteLogService getService(ApplicationContext applicationContext, String host, int port, Class serviceClass) {
+    private UserChannelService getService(ApplicationContext applicationContext, String host, int port, Class serviceClass) {
         String url = "dubbo://"+host+":"+port+"/"+serviceClass.getName();//更改不同的Dubbo服务暴露的ip地址&端口
-        ReferenceBean<RemoteLogService> referenceBean = new ReferenceBean<RemoteLogService>();
+        ReferenceBean<UserChannelService> referenceBean = new ReferenceBean<UserChannelService>();
         referenceBean.setApplicationContext(applicationContext);
+        referenceBean.setVersion("1.0.0");
         referenceBean.setInterface(serviceClass);
         referenceBean.setUrl(url);
         try {
@@ -46,7 +55,4 @@ public class ProviderServiceTest extends BaseTest{
         return null;
     }
 
-    interface RemoteLogService {
-        List<String> findList(int top);
-    }
 }

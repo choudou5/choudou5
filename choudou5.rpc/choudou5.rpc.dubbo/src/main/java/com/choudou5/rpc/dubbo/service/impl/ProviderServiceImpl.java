@@ -17,6 +17,7 @@ package com.choudou5.rpc.dubbo.service.impl;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
+import com.choudou5.base.util.CollUtil;
 import com.choudou5.rpc.dubbo.domain.Provider;
 import com.choudou5.rpc.dubbo.service.ProviderService;
 import com.choudou5.rpc.dubbo.util.Pair;
@@ -48,16 +49,16 @@ public class ProviderServiceImpl extends AbstractService implements ProviderServ
     public List<String> findServices() {
         List<String> ret = new ArrayList<String>();
         ConcurrentMap<String, Map<Long, URL>> providerUrls = getRegistryCache().get(Constants.PROVIDERS_CATEGORY);
-        if(providerUrls != null) ret.addAll(providerUrls.keySet());
+        if(CollUtil.isEmpty(providerUrls))
+            return ret;
+        ret.addAll(providerUrls.keySet());
         return ret;
     }
 
     public List<String> findAddresses() {
         List<String> ret = new ArrayList<String>();
-        
         ConcurrentMap<String, Map<Long, URL>> providerUrls = getRegistryCache().get(Constants.PROVIDERS_CATEGORY);
-        if(null == providerUrls) return ret;
-        
+        if(CollUtil.isEmpty(providerUrls)) return ret;
         for(Entry<String, Map<Long, URL>> e1 : providerUrls.entrySet()) {
             Map<Long, URL> value = e1.getValue();
             for(Entry<Long, URL> e2 : value.entrySet()) {
@@ -66,15 +67,17 @@ public class ProviderServiceImpl extends AbstractService implements ProviderServ
                 if(app != null) ret.add(app);
             }
         }
-        
         return ret;
     }
 
     public List<String> findAddressesByApplication(String application) {
         List<String> ret = new ArrayList<String>();
         ConcurrentMap<String, Map<Long, URL>> providerUrls = getRegistryCache().get(Constants.PROVIDERS_CATEGORY);
+        if(CollUtil.isEmpty(providerUrls)) return ret;
         for(Entry<String, Map<Long, URL>> e1 : providerUrls.entrySet()) {
             Map<Long, URL> value = e1.getValue();
+            if(CollUtil.isEmpty(value))
+                continue;
             for(Entry<Long, URL> e2 : value.entrySet()) {
                 URL u = e2.getValue();
                 if(application.equals(u.getParameter(Constants.APPLICATION_KEY))) {
@@ -90,32 +93,31 @@ public class ProviderServiceImpl extends AbstractService implements ProviderServ
     public List<String> findAddressesByService(String service) {
         List<String> ret = new ArrayList<String>();
         ConcurrentMap<String, Map<Long, URL>> providerUrls = getRegistryCache().get(Constants.PROVIDERS_CATEGORY);
-        if(null == providerUrls) return ret;
-        
-        for(Entry<Long, URL> e2 : providerUrls.get(service).entrySet()) {
+        if(CollUtil.isEmpty(providerUrls))
+            return ret;
+        Map<Long, URL> value = providerUrls.get(service);
+        if(CollUtil.isEmpty(value))
+            return ret;
+        for(Entry<Long, URL> e2 : value.entrySet()) {
             URL u = e2.getValue();
             String app = u.getAddress();
             if(app != null) ret.add(app);
         }
-        
         return ret;
     }
 
     public List<String> findApplicationsByServiceName(String service) {
         List<String> ret = new ArrayList<String>();
         ConcurrentMap<String, Map<Long, URL>> providerUrls = getRegistryCache().get(Constants.PROVIDERS_CATEGORY);
-        if(null == providerUrls) return ret;
-        
+        if(CollUtil.isEmpty(providerUrls)) return ret;
         Map<Long, URL> value = providerUrls.get(service);
-        if(value == null){
-        	return ret;
-        }
+        if(CollUtil.isEmpty(value))
+            return ret;
         for(Entry<Long, URL> e2 : value.entrySet()) {
             URL u = e2.getValue();
             String app = u.getParameter(Constants.APPLICATION_KEY);
             if(app != null) ret.add(app);
         }
-        
         return ret;
     }
 
@@ -127,7 +129,6 @@ public class ProviderServiceImpl extends AbstractService implements ProviderServ
         Map<String, String> filter = new HashMap<String, String>();
         filter.put(Constants.CATEGORY_KEY, Constants.PROVIDERS_CATEGORY);
         filter.put(SyncUtils.SERVICE_FILTER_KEY, service);
-        
         return SyncUtils.filterFromCategory(getRegistryCache(), filter);
     }
 
@@ -149,7 +150,6 @@ public class ProviderServiceImpl extends AbstractService implements ProviderServ
         Map<String, String> filter = new HashMap<String, String>();
         filter.put(Constants.CATEGORY_KEY, Constants.PROVIDERS_CATEGORY);
         filter.put(SyncUtils.ADDRESS_FILTER_KEY, address);
-        
         return SyncUtils.filterFromCategory(getRegistryCache(), filter);
     }
 

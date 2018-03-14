@@ -8,6 +8,7 @@ import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.alibaba.dubbo.common.utils.NetUtils;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.registry.NotifyListener;
+import com.alibaba.dubbo.registry.RegistryService;
 import com.choudou5.rpc.dubbo.util.Tool;
 
 import java.util.HashMap;
@@ -37,9 +38,26 @@ public class RegistryServerSync implements NotifyListener {
             Constants.CHECK_KEY, String.valueOf(false));
 
     private static final AtomicLong ID = new AtomicLong();
-
-    // ConcurrentMap<category, ConcurrentMap<servicename, Map<Long, URL>>>
     private final ConcurrentMap<String, ConcurrentMap<String, Map<Long, URL>>> registryCache = new ConcurrentHashMap<String, ConcurrentMap<String, Map<Long, URL>>>();
+
+
+    private RegistryService registryService;
+    public RegistryService getRegistryService() {
+        return registryService;
+    }
+    public void setRegistryService(RegistryService registryService) {
+        this.registryService = registryService;
+    }
+
+
+    public void init() throws Exception {
+        logger.info("Init Dubbo Admin Sync Cache...");
+        registryService.subscribe(SUBSCRIBE, this);
+    }
+
+    public void destroy() throws Exception {
+        registryService.unsubscribe(SUBSCRIBE, this);
+    }
 
     public ConcurrentMap<String, ConcurrentMap<String, Map<Long, URL>>> getRegistryCache(){
         return registryCache;

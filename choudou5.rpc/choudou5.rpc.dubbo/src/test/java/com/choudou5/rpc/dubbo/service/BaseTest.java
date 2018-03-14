@@ -22,9 +22,12 @@ public class BaseTest {
     }
 
     protected void print(Object object){
-        if(object != null){
-            JsonUtil.toStr(object);
+        if(object == null){
+            System.out.println("null");
+            return;
         }
+        System.out.println(JsonUtil.toStr(object));
+
     }
 
 }
