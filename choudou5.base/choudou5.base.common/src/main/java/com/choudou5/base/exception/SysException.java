@@ -1,11 +1,11 @@
 package com.choudou5.base.exception;
 
 /**
- * @Name：业务异常
+ * @Name：系统异常
  * @Author：xuhaowen
- * @Date：2018-01-13
+ * @Date：2018-03-17
  */
-public class BizException extends RuntimeException {
+public class SysException extends RuntimeException {
 
     private static final long serialVersionUID = 6362782762086492531L;
 
@@ -15,28 +15,28 @@ public class BizException extends RuntimeException {
 
     private Throwable throwable;
 
-    public BizException() {
+    public SysException() {
         super();
     }
 
-    public BizException( String message ) {
+    public SysException(String message) {
         super();
         this.message = message;
     }
 
-    public BizException( int errorCode, Throwable throwable ) {
+    public SysException(int errorCode, Throwable throwable) {
         super();
         this.errorCode = errorCode;
         this.throwable = throwable;
     }
 
-    public BizException( String message, Throwable throwable ) {
+    public SysException(String message, Throwable throwable) {
         super();
         this.message = message;
         this.throwable = throwable;
     }
 
-    public BizException(int errorCode,String message){
+    public SysException(int errorCode, String message) {
         super();
         this.message = message;
         this.errorCode = errorCode;
@@ -46,7 +46,7 @@ public class BizException extends RuntimeException {
         return errorCode;
     }
 
-    public void setErrorCode( Integer errorCode ) {
+    public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -54,7 +54,7 @@ public class BizException extends RuntimeException {
         return message;
     }
 
-    public void setMessage( String message ) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -62,7 +62,7 @@ public class BizException extends RuntimeException {
         return throwable;
     }
 
-    public void setThrowable( Throwable throwable ) {
+    public void setThrowable(Throwable throwable) {
         this.throwable = throwable;
     }
 

@@ -2,6 +2,7 @@ package com.choudou5.base.util.sensitive;
 
 
 import cn.hutool.core.thread.ThreadUtil;
+import com.choudou5.base.exception.SysException;
 import com.choudou5.base.helper.CacheHelper;
 import com.choudou5.base.util.LogPrintUtil;
 import com.choudou5.base.util.StrUtil;
@@ -35,11 +36,11 @@ public class SensitiveUtil {
 
     private static WordTree getCacheWordTree() {
         if(cache == null){
-            throw new RuntimeException("请为 SensitiveUtil类注入 cache");
+            throw new SysException("请为 SensitiveUtil类注入 cache");
         }
         Object obj = cache.getObj(CACHE_KEY);
         if(obj == null){
-            throw new RuntimeException("SensitiveUtil类：未初始化敏感词库！");
+            throw new SysException("SensitiveUtil类：未初始化敏感词库！");
         }else{
             return (WordTree)obj;
         }

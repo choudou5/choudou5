@@ -1,6 +1,6 @@
 package com.choudou5.cache.ehcache;
 
-import com.choudou5.base.exception.BizException;
+import com.choudou5.base.exception.SysException;
 import com.choudou5.base.helper.CacheHelper;
 import com.choudou5.base.util.AssertUtil;
 import com.choudou5.base.util.JsonUtil;
@@ -49,7 +49,7 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public void put(String cacheKey, Object object, int secondTimeout) throws BizException {
+    public void put(String cacheKey, Object object, int secondTimeout) throws SysException {
         AssertUtil.outThrow("未实现此方法。");
     }
 
@@ -92,7 +92,7 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public Integer getInt(String cacheKey) throws BizException {
+    public Integer getInt(String cacheKey) throws SysException {
         Cache cache = manager.getCache(CACHE_SYS);
         Element element = cache.get(cacheKey);
         if(element==null)
@@ -102,7 +102,7 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public Long getLong(String cacheKey) throws BizException {
+    public Long getLong(String cacheKey) throws SysException {
         Cache cache = manager.getCache(CACHE_SYS);
         Element element = cache.get(cacheKey);
         if(element==null)
@@ -112,7 +112,7 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public <T extends Serializable> T get(String cacheKey, Class<T> classz) throws BizException {
+    public <T extends Serializable> T get(String cacheKey, Class<T> classz) throws SysException {
         Cache cache = manager.getCache(CACHE_SYS);
         Element element = cache.get(cacheKey);
         if(element==null)
@@ -124,7 +124,7 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public <T extends Serializable> List<T> getList(String cacheKey, Class<T> classz) throws BizException {
+    public <T extends Serializable> List<T> getList(String cacheKey, Class<T> classz) throws SysException {
         Cache cache = manager.getCache(CACHE_SYS);
         Element element = cache.get(cacheKey);
         if(element==null)
@@ -151,7 +151,7 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public void removes(String... cacheKeys) throws BizException {
+    public void removes(String... cacheKeys) throws SysException {
         Cache cache = manager.getCache(CACHE_SYS);
         for (String cacheKey : cacheKeys) {
             cache.remove(cacheKey);

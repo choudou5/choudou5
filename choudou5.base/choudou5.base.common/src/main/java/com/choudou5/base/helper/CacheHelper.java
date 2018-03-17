@@ -1,7 +1,7 @@
 package com.choudou5.base.helper;
 
 
-import com.choudou5.base.exception.BizException;
+import com.choudou5.base.exception.SysException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,23 +15,23 @@ import java.util.List;
  */
 public interface CacheHelper {
 
-    void put(String cacheKey, Object object) throws BizException;
+    void put(String cacheKey, Object object) throws SysException;
 
-    void put(String cacheKey, Object object, int secondTimeout) throws BizException;
+    void put(String cacheKey, Object object, int secondTimeout) throws SysException;
 
-    String get(String cacheKey) throws BizException;
+    String get(String cacheKey) throws SysException;
 
-    Object getObj(String cacheKey) throws BizException;
+    Object getObj(String cacheKey) throws SysException;
 
-    Integer getInt(String cacheKey) throws BizException;
+    Integer getInt(String cacheKey) throws SysException;
 
-    Long getLong(String cacheKey) throws BizException;
+    Long getLong(String cacheKey) throws SysException;
 
-    <T extends Serializable> T get(String cacheKey, Class<T> classz) throws BizException;
+    <T extends Serializable> T get(String cacheKey, Class<T> classz) throws SysException;
 
-    <T extends Serializable> List<T> getList(String cacheKey, Class<T> classz) throws BizException;
+    <T extends Serializable> List<T> getList(String cacheKey, Class<T> classz) throws SysException;
 
-    void remove(String cacheKey) throws BizException;
+    void remove(String cacheKey) throws SysException;
 
-    void removes(String... cacheKeys) throws BizException;
+    void removes(String... cacheKeys) throws SysException;
 }

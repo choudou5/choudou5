@@ -46,12 +46,15 @@
 			<version>4.3.10.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!--
 		<dependency>
 			<groupId>com.lianj.user.center.api</groupId>
 			<artifactId>lianj.user.center.api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
+		-->
 
 	</dependencies>
 
