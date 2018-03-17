@@ -1,12 +1,7 @@
 package com.choudou5.rpc.dubbo.service;
 
-import com.alibaba.dubbo.config.spring.ReferenceBean;
-import com.lianj.commons.util.AssertUtil;
-import com.lianj.user.center.info.service.UserChannelService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @Name：ProviderServiceTest 说明
@@ -28,6 +23,7 @@ public class ProviderServiceTest extends BaseTest{
 
         print(providerService.findAddressesByService("com.lianj.payment.center.invoice.service.IPayInvoiceDataService:1.0.0"));
     }
+/*
 
     @Test
     public void getService(){
@@ -54,5 +50,6 @@ public class ProviderServiceTest extends BaseTest{
         }
         return null;
     }
+*/
 
 }

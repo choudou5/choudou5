@@ -27,6 +27,10 @@ public class EhCacheUtil implements CacheHelper {
 
     private static EhCacheUtil ehCache;
 
+    protected EhCacheUtil() {
+        this(CONF_PATH);
+    }
+
     public EhCacheUtil(String path) {
         if(manager == null){
             URL url = getClass().getResource(path);
@@ -35,9 +39,8 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     public static EhCacheUtil getInstance() {
-        if (ehCache == null) {
-            ehCache = new EhCacheUtil(CONF_PATH);
-        }
+        if (ehCache == null)
+            ehCache = new EhCacheUtil();
         return ehCache;
     }
 
@@ -45,6 +48,13 @@ public class EhCacheUtil implements CacheHelper {
     public void put(String key, Object value) {
         Cache cache = manager.getCache(CACHE_SYS);
         Element element = new Element(key, JsonUtil.toStr(value));
+        cache.put(element);
+    }
+
+    @Override
+    public void putObj(String key, Object object) throws SysException {
+        Cache cache = manager.getCache(CACHE_SYS);
+        Element element = new Element(key, object);
         cache.put(element);
     }
 

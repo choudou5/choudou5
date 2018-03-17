@@ -47,7 +47,7 @@ public class SensitiveUtil {
     }
 
     private static void clearWordTree() {
-        cache.put(CACHE_KEY, null);
+        cache.putObj(CACHE_KEY, null);
     }
 
     /**
@@ -80,7 +80,7 @@ public class SensitiveUtil {
         clearWordTree();
         WordTree tree = new WordTree();
         tree.addWords(sensitiveWords);
-        cache.put(CACHE_KEY, tree);
+        cache.putObj(CACHE_KEY, tree);
         LogPrintUtil.debug("Sensitive init finished, sensitives: {}", sensitiveWords.size());
     }
 

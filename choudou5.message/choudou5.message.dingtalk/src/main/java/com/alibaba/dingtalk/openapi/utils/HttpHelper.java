@@ -5,7 +5,6 @@ import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.dingtalk.openapi.Env;
 import com.alibaba.dingtalk.openapi.OApiException;
-import com.alibaba.dingtalk.openapi.auth.AuthHelper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.choudou5.base.util.MapUtil;
@@ -43,11 +42,11 @@ public class HttpHelper {
         }else{
             int errCode = result.getInteger("errcode");
             //不合法的access_token
-            if(errCode == 40014){
-                String accessToken = AuthHelper.getNoCacheAccessToken();
-                url = replaceUrlParamValue(Env.OAPI_HOST+url, "access_token", accessToken);
-                return httpGet(url);
-            }
+//            if(errCode == 40014){
+//                String accessToken = AuthHelper.getNoCacheAccessToken();
+//                url = replaceUrlParamValue(Env.OAPI_HOST+url, "access_token", accessToken);
+//                return httpGet(url);
+//            }
             String errMsg = result.getString("errmsg");
             throw new OApiException(errCode, errMsg);
         }
@@ -73,11 +72,11 @@ public class HttpHelper {
                 }else{
                     int errCode = result.getInteger("errcode");
                     //不合法的access_token
-                    if(errCode == 40014){
-                        String accessToken = AuthHelper.getNoCacheAccessToken();
-                        url = replaceUrlParamValue(url, "access_token", accessToken);
-                        return httpPost(Env.OAPI_HOST+url, data);
-                    }
+//                    if(errCode == 40014){
+//                        String accessToken = AuthHelper.getNoCacheAccessToken();
+//                        url = replaceUrlParamValue(url, "access_token", accessToken);
+//                        return httpPost(Env.OAPI_HOST+url, data);
+//                    }
                     String errMsg = result.getString("errmsg");
                     throw new OApiException(errCode, errMsg);
                 }

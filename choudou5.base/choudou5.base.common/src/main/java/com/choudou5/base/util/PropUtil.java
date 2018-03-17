@@ -13,7 +13,7 @@ public class PropUtil {
      * @param key 
      * @return 
      */  
-    public static String getStringFrom(String propFilePath, String key){  
+    public static String getStrFrom(String propFilePath, String key){
     	if(resource == null)
     		resource = ResourceBundle.getBundle(propFilePath);
         return resource.getString(key);  
@@ -24,7 +24,7 @@ public class PropUtil {
      * @param key 
      * @return 
      */  
-    public static String getString(String key){  
+    public static String getStr(String key){
     	if(resource == null)
     		resource = ResourceBundle.getBundle("system");
         return resource.getString(key);  
@@ -35,8 +35,8 @@ public class PropUtil {
      * @param key 
      * @return 
      */  
-    public static String getString(String key, String def){  
-    	String value = getString(key);
+    public static String getStr(String key, String def){
+    	String value = getStr(key);
         return value==null?def:value;  
     }
     
@@ -45,8 +45,8 @@ public class PropUtil {
      * @param key 
      * @return 
      */  
-    public static Integer getInteger(String key){  
-        return Integer.parseInt(getString(key));  
+    public static Integer getInt(String key){
+        return Integer.parseInt(getStr(key));
     }
     
     /** 
@@ -54,9 +54,9 @@ public class PropUtil {
      * @param key 
      * @return 
      */  
-    public static Integer getInteger(String key, int def){  
+    public static Integer getInt(String key, int def){
         try {
-			return Integer.parseInt(getString(key));
+			return Integer.parseInt(getStr(key));
 		} catch (Exception e) {
 			return def;
 		}  
@@ -69,7 +69,7 @@ public class PropUtil {
      * @return 
      */  
     public static Double getDouble(String key){  
-        return Double.parseDouble(getString(key));  
+        return Double.parseDouble(getStr(key));
     }
     
     /** 
@@ -77,13 +77,13 @@ public class PropUtil {
      * @param key 
      * @return 
      */  
-    public static Boolean getBoolean(String key){  
-        return Boolean.parseBoolean(getString(key));  
+    public static Boolean getBool(String key){
+        return Boolean.parseBoolean(getStr(key));
     }  
     
-    public static Boolean getBoolean(String key, boolean def){  
+    public static Boolean getBool(String key, boolean def){
         try {
-			return Boolean.parseBoolean(getString(key));
+			return Boolean.parseBoolean(getStr(key));
 		} catch (Exception e) {
 			return def;
 		}

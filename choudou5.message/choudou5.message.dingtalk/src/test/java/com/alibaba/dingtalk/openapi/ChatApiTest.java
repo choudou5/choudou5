@@ -15,9 +15,6 @@ import java.util.Arrays;
  * @Name：聊天群 api
  * @Author：xuhaowen
  * @Date：2018-01-29
- * @Site：http://solrhome.com
- * @License：MIT
- * @Copyright：xuhaowende@sina.cn (@Copyright 2018-2020)
  */
 public class ChatApiTest extends BaseApiTest {
 
@@ -35,7 +32,7 @@ public class ChatApiTest extends BaseApiTest {
         //发送链接消息
         LinkMessage message = new LinkMessage();
         message.setTitle("标题");
-        message.setText("链接到我的solrhom888888");
+        message.setText("链接到我的sfasdfasd8888");
         message.setMessageUrl("http://www.solrhome.com");
         message.setPicUrl("https://gw.alicdn.com/tps/TB1FN16LFXXXXXJXpXXXXXXXXXX-256-130.png");
         sendMsg(chatId, message);

@@ -1,6 +1,6 @@
 package com.alibaba.dingtalk.openapi;
 
-import com.alibaba.dingtalk.openapi.auth.AuthService;
+import com.com.choudou5.message.dingtalk.service.DingTalkAuthService;
 import com.alibaba.dingtalk.openapi.utils.HttpHelper;
 import com.alibaba.fastjson.JSONObject;
 import com.choudou5.base.util.FileUtil;
@@ -14,22 +14,22 @@ import com.choudou5.base.util.StrUtil;
  * @License：MIT
  * @Copyright：xuhaowende@sina.cn (@Copyright 2018-2020)
  */
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceTestImpl implements DingTalkAuthService {
 
     //企业应用接入秘钥相关
     private String corpId;
     private String corpSecret;
     private String ssoSecret;
 
-    public AuthServiceImpl() {
+    public AuthServiceTestImpl() {
     }
 
-    public AuthServiceImpl(String corpId, String corpSecret) {
+    public AuthServiceTestImpl(String corpId, String corpSecret) {
         this.corpId = corpId;
         this.corpSecret = corpSecret;
     }
 
-    public AuthServiceImpl(String corpId, String corpSecret, String ssoSecret) {
+    public AuthServiceTestImpl(String corpId, String corpSecret, String ssoSecret) {
         this.corpId = corpId;
         this.corpSecret = corpSecret;
         this.ssoSecret = ssoSecret;

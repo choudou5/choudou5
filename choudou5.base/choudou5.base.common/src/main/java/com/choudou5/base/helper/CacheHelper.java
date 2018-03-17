@@ -17,6 +17,8 @@ public interface CacheHelper {
 
     void put(String cacheKey, Object object) throws SysException;
 
+    void putObj(String cacheKey, Object object) throws SysException;
+
     void put(String cacheKey, Object object, int secondTimeout) throws SysException;
 
     String get(String cacheKey) throws SysException;

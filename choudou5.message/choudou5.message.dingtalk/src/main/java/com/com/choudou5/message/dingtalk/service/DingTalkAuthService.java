@@ -1,11 +1,11 @@
-package com.alibaba.dingtalk.openapi.auth;
+package com.com.choudou5.message.dingtalk.service;
 
 /**
- * @Name
+ * @Name 钉钉认证 接口
  * @Author xuhaowen
  * @Date 2018-01-27
  */
-public interface AuthService {
+public interface DingTalkAuthService {
 
     String getAccessToken();
 

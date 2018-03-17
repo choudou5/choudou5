@@ -1,21 +1,18 @@
 package com.dingtalk.api;
 
-import java.io.IOException;
-import java.util.Date;
-
-import com.alibaba.dingtalk.openapi.auth.AuthHelper;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.taobao.api.*;
-import com.taobao.api.internal.mapping.Converter;
-import com.taobao.api.internal.parser.json.JsonConverter;
+import com.taobao.api.ApiException;
+import com.taobao.api.ApiRuleException;
+import com.taobao.api.Constants;
+import com.taobao.api.TaobaoParser;
 import com.taobao.api.internal.parser.json.ObjectJsonParser;
-import com.taobao.api.internal.parser.json.SimplifyJsonConverter;
 import com.taobao.api.internal.parser.xml.ObjectXmlParser;
 import com.taobao.api.internal.util.RequestParametersHolder;
 import com.taobao.api.internal.util.TaobaoHashMap;
 import com.taobao.api.internal.util.TaobaoLogger;
 import com.taobao.api.internal.util.WebUtils;
+
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * 钉钉客户端。
@@ -147,17 +144,17 @@ public class DefaultDingTalkClient implements DingTalkClient {
 			TaobaoLogger.logApiError("_dingtalk_", request.getApiMethodName(), serverUrl, requestHolder.getAllParams(), System.currentTimeMillis() - start, tRsp.getBody());
 		}
 		//重试
-		JSONObject jsonObject = JSON.parseObject(tRsp.getBody());
-		if(jsonObject.getJSONObject("error_response") != null){
-			String sub_code = jsonObject.getJSONObject("error_response").getString("sub_code");
-			if("40014".equals(sub_code)){
-				System.out.println("重新刷新 accesToken");
-				session = AuthHelper.getNoCacheAccessToken();
-				if(session != null){
-					return _execute(request, session);
-				}
-			}
-		}
+//		JSONObject jsonObject = JSON.parseObject(tRsp.getBody());
+//		if(jsonObject.getJSONObject("error_response") != null){
+//			String sub_code = jsonObject.getJSONObject("error_response").getString("sub_code");
+//			if("40014".equals(sub_code)){
+//				System.out.println("重新刷新 accesToken");
+//				session = AuthHelper.getNoCacheAccessToken();
+//				if(session != null){
+//					return _execute(request, session);
+//				}
+//			}
+//		}
 		return tRsp;
 	}
 
