@@ -2,7 +2,6 @@ package com.choudou5.cache.ehcache;
 
 import com.choudou5.base.exception.SysException;
 import com.choudou5.base.helper.CacheHelper;
-import com.choudou5.base.util.AssertUtil;
 import com.choudou5.base.util.JsonUtil;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -52,15 +51,17 @@ public class EhCacheUtil implements CacheHelper {
     }
 
     @Override
-    public void putObj(String key, Object object) throws SysException {
+    public void putObj(String key, Object value) throws SysException {
         Cache cache = manager.getCache(CACHE_SYS);
-        Element element = new Element(key, object);
+        Element element = new Element(key, value);
         cache.put(element);
     }
 
     @Override
-    public void put(String cacheKey, Object object, int secondTimeout) throws SysException {
-        AssertUtil.outThrow("未实现此方法。");
+    public void put(String cacheKey, Object value, int secondTimeout) throws SysException {
+        Cache cache = manager.getCache(CACHE_SYS);
+        Element element = new Element(cacheKey, JsonUtil.toStr(value), false, secondTimeout, secondTimeout);
+        cache.put(element);
     }
 
     public void put(String cacheName, String key, Object value) {
