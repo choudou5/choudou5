@@ -2,18 +2,26 @@
     日志管理
 
 ### 使用
-    1、demo参考 test 的controller
+
+    1、maven依赖
+        <dependency>
+            <groupId>com.choudou5</groupId>
+            <artifactId>choudou5.log.admin</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+    2、demo参考 test 的controller
     
-    2、修改 logback.xml filter类
+    3、修改 logback.xml filter类
     <filter class="com.choudou5.log.admin.logback.CustomEventFilter">
     
-    3、初始化 日志观察者
+    4、初始化 日志观察者
         LogWatcher watcher = new LogbackWatcher();
         watcher.registerListener(new ListenerConfig(50));//保留50条最新日志
         CustomEventFilter.setWatcher(watcher);
         LogAdminHelper.setWatcher(watcher);
         
-    4、停止日志监控
+    5、停止日志监控
         LogAdminHelper.stop();
     
 ### 效果图
