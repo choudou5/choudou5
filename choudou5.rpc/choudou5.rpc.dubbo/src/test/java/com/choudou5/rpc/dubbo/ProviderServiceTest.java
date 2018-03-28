@@ -1,7 +1,18 @@
-package com.choudou5.rpc.dubbo.service;
+package com.choudou5.rpc.dubbo;
 
+import com.alibaba.dubbo.common.URL;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+import com.alibaba.dubbo.rpc.ProxyFactory;
+import com.alibaba.dubbo.rpc.protocol.dubbo.DubboInvoker;
+import com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol;
+import com.choudou5.base.util.AssertUtil;
+import com.choudou5.base.util.CollUtil;
+import com.choudou5.rpc.dubbo.service.ProviderService;
+import com.lianj.user.center.info.service.UserChannelService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @Name：ProviderServiceTest 说明
@@ -23,6 +34,27 @@ public class ProviderServiceTest extends BaseTest{
 
         print(providerService.findAddressesByService("com.lianj.payment.center.invoice.service.IPayInvoiceDataService:1.0.0"));
     }
+
+    @Test
+    public void testMethod(){
+        DubboProtocol protocol = DubboProtocol.getDubboProtocol();
+        ProxyFactory proxy = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getAdaptiveExtension();
+        List<URL> urls = providerService.findURLByService("com.lianj.user.center.info.service.UserChannelService:1.0.0");
+        if (CollUtil.isNotEmpty(urls)) {
+            for (URL url : urls) {
+                DubboInvoker<?> invoker = (DubboInvoker<?>) protocol.refer(UserChannelService.class, url);
+                if (invoker.isAvailable()) {
+                    UserChannelService service = (UserChannelService) proxy.getProxy(invoker);
+                    AssertUtil.isNotNull(service, "服务找不到");
+                    print(service.selectAll());
+                }
+            }
+        }else{
+            System.out.println("urls is empty");
+        }
+    }
+
+
 /*
 
     @Test

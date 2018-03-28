@@ -1,4 +1,4 @@
-package com.choudou5.rpc.dubbo.service;
+package com.choudou5.rpc.dubbo;
 
 import com.choudou5.base.util.DateUtil;
 import org.slf4j.Logger;

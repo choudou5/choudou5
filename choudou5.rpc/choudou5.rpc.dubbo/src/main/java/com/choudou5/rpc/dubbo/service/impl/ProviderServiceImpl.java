@@ -18,8 +18,8 @@ package com.choudou5.rpc.dubbo.service.impl;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.choudou5.base.util.CollUtil;
-import com.choudou5.rpc.dubbo.domain.Provider;
 import com.choudou5.rpc.dubbo.service.ProviderService;
+import com.choudou5.rpc.dubbo.domain.Provider;
 import com.choudou5.rpc.dubbo.util.Pair;
 import com.choudou5.rpc.dubbo.util.ParseUtils;
 import com.choudou5.rpc.dubbo.util.SyncUtils;
@@ -105,6 +105,21 @@ public class ProviderServiceImpl extends AbstractService implements ProviderServ
         }
         return ret;
     }
+
+    public List<URL> findURLByService(String service) {
+        List<URL> ret = new ArrayList<URL>();
+        ConcurrentMap<String, Map<Long, URL>> providerUrls = getRegistryCache().get(Constants.PROVIDERS_CATEGORY);
+        if(CollUtil.isEmpty(providerUrls))
+            return ret;
+        Map<Long, URL> value = providerUrls.get(service);
+        if(CollUtil.isEmpty(value))
+            return ret;
+        for(Entry<Long, URL> e2 : value.entrySet()) {
+            ret.add(e2.getValue());
+        }
+        return ret;
+    }
+
 
     public List<String> findApplicationsByServiceName(String service) {
         List<String> ret = new ArrayList<String>();

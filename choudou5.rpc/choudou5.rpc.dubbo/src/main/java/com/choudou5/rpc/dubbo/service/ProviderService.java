@@ -15,6 +15,7 @@
  */
 package com.choudou5.rpc.dubbo.service;
 
+import com.alibaba.dubbo.common.URL;
 import com.choudou5.rpc.dubbo.domain.Provider;
 
 import java.util.List;
@@ -36,7 +37,9 @@ public interface ProviderService {
     List<String> findAddressesByApplication(String application);
     
     List<String> findAddressesByService(String serviceName);
-    
+
+    List<URL> findURLByService(String serviceName);
+
     List<String> findApplicationsByServiceName(String serviceName);
 
     List<Provider> findByService(String serviceName);

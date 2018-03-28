@@ -15,7 +15,6 @@
  */
 package com.choudou5.rpc.dubbo.service;
 
-import com.choudou5.rpc.dubbo.domain.*;
 import com.choudou5.rpc.dubbo.domain.Override;
 
 import java.util.List;
