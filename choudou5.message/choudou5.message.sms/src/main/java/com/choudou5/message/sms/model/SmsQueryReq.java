@@ -39,7 +39,7 @@ public class SmsQueryReq implements Serializable {
     }
 
     public SmsQueryReq(Long pageSize, Long currentPage) {
-        this.sendDate = DateUtil.getYesterDayShort();
+        this.sendDate = DateUtil.yesterdayShort();
         this.pageSize = pageSize;
         this.currentPage = currentPage;
     }
