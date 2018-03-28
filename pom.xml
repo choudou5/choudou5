@@ -29,6 +29,7 @@
 		<module>choudou5.security</module>
 		<module>choudou5.file</module>
 		<module>choudou5.rpc</module>
+		<module>choudou5.log</module>
 	</modules>
 
 
