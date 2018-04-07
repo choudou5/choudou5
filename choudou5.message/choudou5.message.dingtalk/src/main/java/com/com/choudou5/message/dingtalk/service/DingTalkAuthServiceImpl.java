@@ -29,6 +29,8 @@ public class DingTalkAuthServiceImpl implements DingTalkAuthService{
         String accessToken = cache.get(cachePrefx+CACHE_KEY);
         if(StrUtil.isBlank(accessToken))
             accessToken = httpGetAccessToken();
+        else
+            accessToken = accessToken.replace("\"", "");
         return accessToken;
     }
 

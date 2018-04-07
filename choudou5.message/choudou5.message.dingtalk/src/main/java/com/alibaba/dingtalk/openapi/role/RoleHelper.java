@@ -27,7 +27,9 @@ public class RoleHelper {
         req.setSize(row);
         req.setOffset(start);
         CorpRoleListResponse rsp = client.execute(req, accessToken);
-        return rsp.getResult().getList();
+        if(rsp.getResult() != null)
+            return rsp.getResult().getList();
+        return null;
     }
 
     /**
@@ -46,7 +48,9 @@ public class RoleHelper {
         req.setSize(row);
         req.setOffset(start);
         CorpRoleSimplelistResponse rsp = client.execute(req, accessToken);
-        return rsp.getResult().getList();
+        if(rsp.getResult() != null)
+            return rsp.getResult().getList();
+        return null;
     }
 
     /**
@@ -61,7 +65,9 @@ public class RoleHelper {
         CorpRoleGetrolegroupRequest req = new CorpRoleGetrolegroupRequest();
         req.setGroupId(groupId);
         CorpRoleGetrolegroupResponse rsp = client.execute(req, accessToken);
-        return rsp.getResult().getRoleGroup();
+        if(rsp.getResult() != null)
+            return rsp.getResult().getRoleGroup();
+        return null;
     }
 
 
@@ -91,7 +97,9 @@ public class RoleHelper {
         req.setRolelidList(StrUtil.join(",", roleIdList));
         req.setUseridList(StrUtil.join(",", userIdList));
         CorpRoleAddrolesforempsResponse rsp = client.execute(req, accessToken);
-        return rsp.getResult().getSuccess();
+        if(rsp.getResult() != null)
+            return rsp.getResult().getSuccess();
+        return false;
     }
 
     /**
@@ -120,6 +128,8 @@ public class RoleHelper {
         req.setRoleidList(StrUtil.join(",", roleIdList));
         req.setUseridList(StrUtil.join(",", userIdList));
         CorpRoleRemoverolesforempsResponse rsp = client.execute(req, accessToken);
-        return rsp.getResult().getSuccess();
+        if(rsp.getResult() != null)
+            return rsp.getResult().getSuccess();
+        return false;
     }
 }
