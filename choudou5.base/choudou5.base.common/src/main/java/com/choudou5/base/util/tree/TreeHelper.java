@@ -2,7 +2,7 @@ package com.choudou5.base.util.tree;
 
 
 import com.choudou5.base.util.CollUtil;
-import com.choudou5.base.util.tree.model.TreeNodeBo;
+import com.choudou5.base.util.tree.model.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -35,7 +35,7 @@ public class TreeHelper {
      * @param rootName 根名称
      * @return
      */
-    public static <T extends TreeNodeBo> Map<String, Object> buildTreeData(List<T> list, String rootName){
+    public static <T extends TreeNode> Map<String, Object> buildTreeData(List<T> list, String rootName){
         Map<String, Object> root = getRoot(rootName);
         if(CollUtil.isEmpty(list))
             return root;
@@ -51,12 +51,12 @@ public class TreeHelper {
      * @param startEachIndex 开始遍历下标
      * @return
      */
-    private static <T extends TreeNodeBo> List<Map<String, Map>> buildTree(String parentId, List<T> datas, int startEachIndex){
+    private static <T extends TreeNode> List<Map<String, Map>> buildTree(String parentId, List<T> datas, int startEachIndex){
         if(CollUtil.isEmpty(datas))
             return null;
         List<Map<String, Map>> childrens = new ArrayList<>();
         for (int i = startEachIndex; i < datas.size(); i++) {
-            TreeNodeBo node = datas.get(i);
+            TreeNode node = datas.get(i);
             if(parentId.equals(node.getParentId())){
                 Map children = new LinkedHashMap<>();
                 children.put("id", node.getId());
@@ -70,11 +70,11 @@ public class TreeHelper {
         return childrens;
     }
 
-    private Map<String, TreeNodeBo> toMap(List<TreeNodeBo> datas){
+    private Map<String, TreeNode> toMap(List<TreeNode> datas){
         if(CollUtil.isEmpty(datas))
             return null;
-        Map<String, TreeNodeBo> mapList = new LinkedHashMap<>();
-        for(TreeNodeBo node : datas) {
+        Map<String, TreeNode> mapList = new LinkedHashMap<>();
+        for(TreeNode node : datas) {
             mapList.put(node.getId(), node);
         }
         return mapList;

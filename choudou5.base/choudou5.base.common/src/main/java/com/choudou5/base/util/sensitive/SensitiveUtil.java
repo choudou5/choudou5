@@ -4,7 +4,7 @@ package com.choudou5.base.util.sensitive;
 import cn.hutool.core.thread.ThreadUtil;
 import com.choudou5.base.exception.SysException;
 import com.choudou5.base.helper.CacheHelper;
-import com.choudou5.base.util.LogPrintUtil;
+import com.choudou5.base.util.PrintUtil;
 import com.choudou5.base.util.StrUtil;
 
 import java.util.Collection;
@@ -57,7 +57,7 @@ public class SensitiveUtil {
      */
     public static void init(final Collection<String> sensitiveWords, boolean isAsync){
         if(isAsync){
-            LogPrintUtil.debug("Sensitive isAsync init");
+            PrintUtil.println("Sensitive isAsync init");
             ThreadUtil.execAsync(new Callable<Boolean>() {
                 @Override
                 public Boolean call() throws Exception {
@@ -76,12 +76,12 @@ public class SensitiveUtil {
      * @param sensitiveWords 敏感词列表
      */
     public static void init(Collection<String> sensitiveWords){
-        LogPrintUtil.debug("Sensitive init start");
+        PrintUtil.println("Sensitive init start");
         clearWordTree();
         WordTree tree = new WordTree();
         tree.addWords(sensitiveWords);
         cache.putObj(CACHE_KEY, tree);
-        LogPrintUtil.debug("Sensitive init finished, sensitives: {}", sensitiveWords.size());
+        PrintUtil.println("Sensitive init finished, sensitives: {}", sensitiveWords.size());
     }
 
     /**

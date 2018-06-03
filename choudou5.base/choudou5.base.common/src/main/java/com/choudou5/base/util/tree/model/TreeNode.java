@@ -1,5 +1,7 @@
 package com.choudou5.base.util.tree.model;
 
+import java.io.Serializable;
+
 /**
  * @Name：树节点
  * @Author：xuhaowen
@@ -8,7 +10,7 @@ package com.choudou5.base.util.tree.model;
  * @License：MIT
  * @Copyright：xuhaowende@sina.cn (@Copyright 2018-2020)
  */
-public interface TreeNodeBo {
+public interface TreeNode extends Serializable{
 
     String getId();
 

@@ -1,5 +1,6 @@
 package com.choudou5.base.mapper;
 
+import com.choudou5.base.page.PageResult;
 import org.dozer.DozerBeanMapper;
 
 import java.util.ArrayList;
@@ -49,5 +50,23 @@ public class BeanMapper {
         }
         return destinationList;
     }
+
+    /**
+     * 基于Dozer转换PageResult中对象的类型.
+     * @param sourceResult
+     * @param destinationClass
+     */
+    public static <T> PageResult<T> mapPage(PageResult sourceResult, Class<T> destinationClass) {
+        PageResult<T> result = new PageResult<>();
+        if(sourceResult == null) return result;
+        List<T> sourceList = sourceResult.getResult();
+        if(sourceList == null) return result;
+        result.setResult(mapList(sourceList, destinationClass));
+        result.setPage(sourceResult.getPageNo(), sourceResult.getPageSize());
+        result.setTotalCount(sourceResult.getTotalCount());
+        return result;
+    }
+
+
 
 }

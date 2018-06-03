@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.choudou5.base.util.ArrayUtil;
-import com.choudou5.base.util.LogPrintUtil;
+import com.choudou5.base.util.PrintUtil;
 import com.choudou5.base.util.StrUtil;
 import com.choudou5.base.util.map.model.BaiduArea;
 import com.choudou5.base.util.map.model.Geo;
@@ -37,10 +37,10 @@ public class BaiduMapUtil {
         String appKey = "A1LU7iHS0avqQwPLAxbhKn0UYSQCuRVH";
 
         Geo geo = getLngLat(appKey, "上海市");
-        LogPrintUtil.println(geo);
+        PrintUtil.println(geo);
 
         List<BaiduArea> areas = getAreas(appKey, geo);
-        LogPrintUtil.println(areas);
+        PrintUtil.println(areas);
     }
 
     /**

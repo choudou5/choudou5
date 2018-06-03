@@ -78,6 +78,11 @@ public class PageResult<T> implements Serializable{
         return this;
     }
 
+    public void setPage(final int pageNo, final int pageSize) {
+       setPageNo(pageNo);
+        setPageSize(pageSize);
+    }
+
     public int getStart() {
         return (pageNo - 1) * pageSize;
     }

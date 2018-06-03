@@ -21,7 +21,6 @@ public class QueryParam implements Serializable {
     private Object paramBean;
     private PageBean pageBean;
     private OrderBean orderBean;
-    private static String dbName;
     private Map<String, Object> extendParams = new HashMap();
 
 
@@ -47,15 +46,6 @@ public class QueryParam implements Serializable {
 
     public void setOrderBean(OrderBean orderBean) {
         this.orderBean = orderBean;
-    }
-
-    @Transient
-    public String getDbName() {
-        return QueryParam.dbName;
-    }
-
-    public static void setDbName(String dbName) {
-        QueryParam.dbName = dbName;
     }
 
     public Map<String, Object> getExtendParams() {

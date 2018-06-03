@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.choudou5.base.util.LogPrintUtil;
+import com.choudou5.base.util.PrintUtil;
 import com.choudou5.base.util.StrUtil;
 import com.choudou5.base.util.ip.model.IPEntry;
 import com.choudou5.base.util.ip.model.IPLocation;
@@ -47,7 +47,7 @@ public class IPParseUtil {
     // 内存映射文件
     private MappedByteBuffer mbb;
     // 单一模式实例
-    private static IPParseUtil instance = new IPParseUtil();
+    private static IPParseUtil instance = null;
     // 起始地区的开始和结束的绝对偏移
     private long ipBegin, ipEnd;
     // 为提高效率而采用的临时变量
@@ -59,24 +59,23 @@ public class IPParseUtil {
     private static final String API = "http://ip.taobao.com/service/getIpInfo.php?ip=";
 
     public static void main( String[] args ) {
-//        String country = IPParseUtil.getInstance().getAddress("185.159.128.197");
-//        LogPrintUtil.println(country);
+        String country = IPParseUtil.getInstance("D:\\dev\\ip\\ip.dat").getAddress("185.159.128.197");
+        PrintUtil.println(country);
 
-        for (int i = 0; i < 2000; i++) {
-            String addr = IPParseUtil.getAddressByTaoBaoApi("185.159.128.197");
-            LogPrintUtil.println(addr);
+        for (int i = 0; i < 20; i++) {
+            String addr = IPParseUtil.getAddrByTaoBaoApi("185.159.128.197");
+            PrintUtil.println("by taobao api:" + addr);
         }
 
     }
 
-
     /**
-     * 私有构造函数
+     * 构造函数
      */
-    private IPParseUtil() {
+    private IPParseUtil(String dataFilePath) {
 //        File IP_FILE = new File( SystemConfiguration.getInstance().getSystemConfig().getSystemRealPath()
 //                + File.separator + "WEB-INF" + File.separator + "config" + File.separator + "ip.dat" );
-        File IP_FILE = new File("D:/dev/ip/qqwry.dat" );
+        File IP_FILE = new File(dataFilePath);
         // IP_FILE = new File( "d:/ip.dat" );
         ipCache = new Hashtable();
         loc = new IPLocation();
@@ -109,8 +108,9 @@ public class IPParseUtil {
     /**
      * @return 单一实例
      */
-    public static IPParseUtil getInstance()
-    {
+    public static IPParseUtil getInstance(String dataFilePath) {
+        if(instance == null)
+            instance = new IPParseUtil(dataFilePath);
         return instance;
     }
 
@@ -845,7 +845,7 @@ public class IPParseUtil {
      * @param ip
      * @return
      */
-    public static String getAddressByTaoBaoApi(String ip) {
+    public static String getAddrByTaoBaoApi(String ip) {
         TaoBaoIpEntry entry = getInfoByTaoBaoApi(ip);
         if(entry != null && StrUtil.isNotBlank(entry.getCountry())){
             return StrUtil.joinIgnoreBlank("-", entry.getCountry(), entry.getRegion(), entry.getCity(), entry.getArea(), entry.getIsp());

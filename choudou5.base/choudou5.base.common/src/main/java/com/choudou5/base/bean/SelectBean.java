@@ -3,28 +3,28 @@ package com.choudou5.base.bean;
 import java.io.Serializable;
 
 /**
- * @Name：下拉框BO
+ * @Name：下拉框 bean
  * @Author：xuhaowende@sina.cn
  * @Date：2018-01-14
  * @Site：http://solrhome.com
  * @License：MIT
  * @Copyright：xuhaowende@sina.cn (@Copyright 2018-2020)
  */
-public class SelectBo implements Serializable {
+public class SelectBean implements Serializable {
 
     private String text;
     private String value;
     private boolean selected;
 
-    public SelectBo() {
+    public SelectBean() {
     }
 
-    public SelectBo(String text, String value) {
+    public SelectBean(String text, String value) {
         this.text = text;
         this.value = value;
     }
 
-    public SelectBo(String text, String value, boolean selected) {
+    public SelectBean(String text, String value, boolean selected) {
         this.text = text;
         this.value = value;
         this.selected = selected;
