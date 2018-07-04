@@ -15,20 +15,20 @@
  */
 package com.choudou5.rpc.dubbo.domain;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.StringUtils;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Consumer
  * 
  * @author william.liangf
  */
-public class Consumer extends Entity {
+public class ConsumerEntity extends Entity {
 
     private static final long serialVersionUID = -1140894843784583237L;
 
@@ -50,22 +50,22 @@ public class Consumer extends Entity {
     
     private Date collected;  /* 服务调用统计时间 */ 
 
-	private Override override;
+	private OverrideEntity override;
 
-	private List<Override> overrides;
+	private List<OverrideEntity> overrides;
 
-    private List<Route> routes;
+    private List<RouteEntity> routes;
     
-    private List<Provider> providers;
+    private List<ProviderEntity> providers;
     
 	private Date expired;   /*过期时间*/
     
     private long alived;    /*存活时间，单位秒*/
 
-    public Consumer() {
+    public ConsumerEntity() {
     }
 
-    public Consumer(Long id) {
+    public ConsumerEntity(Long id) {
         super(id);
     }
 
@@ -160,35 +160,35 @@ public class Consumer extends Entity {
         this.alived = alived;
     }
 
-	public Override getOverride() {
+	public OverrideEntity getOverride() {
 		return override;
 	}
 
-	public void setOverride(Override override) {
+	public void setOverride(OverrideEntity override) {
 		this.override = override;
 	}
 
-    public List<Override> getOverrides() {
+    public List<OverrideEntity> getOverrides() {
 		return overrides;
 	}
 
-	public void setOverrides(List<Override> overrides) {
+	public void setOverrides(List<OverrideEntity> overrides) {
 		this.overrides = overrides;
 	}
 
-    public List<Route> getRoutes() {
+    public List<RouteEntity> getRoutes() {
 		return routes;
 	}
 
-	public void setRoutes(List<Route> routes) {
+	public void setRoutes(List<RouteEntity> routes) {
 		this.routes = routes;
 	}
 
-	public List<Provider> getProviders() {
+	public List<ProviderEntity> getProviders() {
 		return providers;
 	}
 
-	public void setProviders(List<Provider> providers) {
+	public void setProviders(List<ProviderEntity> providers) {
 		this.providers = providers;
 	}
 

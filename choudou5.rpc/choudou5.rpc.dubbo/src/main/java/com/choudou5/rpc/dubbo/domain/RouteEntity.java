@@ -15,17 +15,17 @@
  */
 package com.choudou5.rpc.dubbo.domain;
 
-import java.util.List;
-
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
+
+import java.util.List;
 
 /**
  * Route
  * 
  * @author william.liangf
  */
-public class Route extends Entity {
+public class RouteEntity extends Entity {
 	
     private static final long serialVersionUID = -7630589008164140656L;
 
@@ -79,12 +79,12 @@ public class Route extends Entity {
 
     private boolean force;
     
-    private List<Route> children;
+    private List<RouteEntity> children;
     
-    public Route() {
+    public RouteEntity() {
     }
 
-    public Route(Long id) {
+    public RouteEntity(Long id) {
         super(id);
     }
     
@@ -112,11 +112,11 @@ public class Route extends Entity {
 		this.parentId = parentId;
 	}
 
-	public List<Route> getChildren() {
+	public List<RouteEntity> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<Route> subRules) {
+	public void setChildren(List<RouteEntity> subRules) {
 		this.children = subRules;
 	}
 

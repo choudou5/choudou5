@@ -16,7 +16,7 @@
 package com.choudou5.rpc.dubbo.service;
 
 import com.alibaba.dubbo.common.URL;
-import com.choudou5.rpc.dubbo.domain.Provider;
+import com.choudou5.rpc.dubbo.domain.ProviderEntity;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public interface ProviderService {
 
-    Provider findProvider(Long id);
+    ProviderEntity findProvider(Long id);
     
     List<String> findServices();
     
@@ -42,22 +42,22 @@ public interface ProviderService {
 
     List<String> findApplicationsByServiceName(String serviceName);
 
-    List<Provider> findByService(String serviceName);
+    List<ProviderEntity> findByService(String serviceName);
 
-    List<Provider> findAll();
+    List<ProviderEntity> findAll();
 
-    List<Provider> findByAddress(String providerAddress);
+    List<ProviderEntity> findByAddress(String providerAddress);
 
     List<String> findServicesByAddress(String providerAddress);
 
     List<String> findApplications();
     
-    List<Provider> findByApplication(String application);
+    List<ProviderEntity> findByApplication(String application);
     
     List<String> findServicesByApplication(String application);
     
     List<String> findMethodsByService(String serviceName);
-    
-	Provider findByServiceAndAddress(String service, String address);
+
+    ProviderEntity findByServiceAndAddress(String service, String address);
 	
 }

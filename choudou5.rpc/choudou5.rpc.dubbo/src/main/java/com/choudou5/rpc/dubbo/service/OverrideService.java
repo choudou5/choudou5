@@ -15,7 +15,8 @@
  */
 package com.choudou5.rpc.dubbo.service;
 
-import com.choudou5.rpc.dubbo.domain.Override;
+
+import com.choudou5.rpc.dubbo.domain.OverrideEntity;
 
 import java.util.List;
 
@@ -25,18 +26,18 @@ import java.util.List;
  */
 public interface OverrideService {
     
-    List<Override> findByService(String service);
+    List<OverrideEntity> findByService(String service);
     
-    List<Override> findByAddress(String address);
+    List<OverrideEntity> findByAddress(String address);
     
-    List<Override> findByServiceAndAddress(String service, String address);
+    List<OverrideEntity> findByServiceAndAddress(String service, String address);
     
-    List<Override> findByApplication(String application);
+    List<OverrideEntity> findByApplication(String application);
 
-    List<Override> findByServiceAndApplication(String service, String application);
+    List<OverrideEntity> findByServiceAndApplication(String service, String application);
     
-    List<Override> findAll();
+    List<OverrideEntity> findAll();
 
-    Override findById(Long id);
+    OverrideEntity findById(Long id);
     
 }

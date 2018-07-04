@@ -14,11 +14,11 @@
  */
 package com.choudou5.rpc.dubbo.util;
 
-import cn.hutool.core.util.EscapeUtil;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.choudou5.rpc.dubbo.domain.Override;
+import com.choudou5.rpc.dubbo.domain.OverrideEntity;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -164,11 +164,11 @@ public class Tool {
     }
     
     public static String escape(String html) {
-        return EscapeUtil.escape(html);
+        return StringEscapeUtils.escapeHtml4(html);
     }
 
     public static String unescape(String html) {
-        return EscapeUtil.unescape(html);
+        return StringEscapeUtils.unescapeHtml4(html);
     }
     
     public static String encodeUrl(String url) {
@@ -180,7 +180,7 @@ public class Tool {
     }
     
     public static String encodeHtml(String html) {
-    	return EscapeUtil.escape(html);
+    	return StringEscapeUtils.escapeHtml4(html);
     }
     
     public static int countMapValues(Map<?, ?> map) {
@@ -290,9 +290,9 @@ public class Tool {
    	  return (date1.getTime() - date1.getTime())/ 1000;
     }
 
-    public String getOverridesMock(List<Override> overrides){
+    public String getOverridesMock(List<OverrideEntity> overrides){
     	if(overrides != null && overrides.size() > 0) {
-	    	for(Override override : overrides) {
+	    	for(OverrideEntity override : overrides) {
 				Map<String, String> params = StringUtils.parseQueryString(override.getParams());
 				String mock = params.get("mock");
 				if (mock != null && mock.length() > 0) {

@@ -15,11 +15,11 @@
  */
 package com.choudou5.rpc.dubbo.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.utils.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author ding.lid

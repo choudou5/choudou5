@@ -19,10 +19,10 @@ package com.choudou5.rpc.dubbo.util;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.choudou5.rpc.dubbo.domain.Consumer;
-import com.choudou5.rpc.dubbo.domain.Override;
-import com.choudou5.rpc.dubbo.domain.Provider;
-import com.choudou5.rpc.dubbo.domain.Route;
+import com.choudou5.rpc.dubbo.domain.ConsumerEntity;
+import com.choudou5.rpc.dubbo.domain.OverrideEntity;
+import com.choudou5.rpc.dubbo.domain.ProviderEntity;
+import com.choudou5.rpc.dubbo.domain.RouteEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ public class SyncUtils {
 
     public static final String ID_FILTER_KEY = ".id";
 
-    public static Provider url2Provider(Pair<Long, URL> pair) {
+    public static ProviderEntity url2Provider(Pair<Long, URL> pair) {
         if (pair == null) {
             return null;
         }
@@ -51,7 +51,7 @@ public class SyncUtils {
         if (url == null)
             return null;
 
-        Provider p = new Provider();
+        ProviderEntity p = new ProviderEntity();
         p.setId(id);
         p.setService(url.getServiceKey());
         p.setAddress(url.getAddress());
@@ -67,15 +67,15 @@ public class SyncUtils {
         return p;
     }
 
-    public static List<Provider> url2ProviderList(Map<Long, URL> ps) {
-        List<Provider> ret = new ArrayList<Provider>();
+    public static List<ProviderEntity> url2ProviderList(Map<Long, URL> ps) {
+        List<ProviderEntity> ret = new ArrayList<ProviderEntity>();
         for(Map.Entry<Long, URL> entry : ps.entrySet()) {
             ret.add(url2Provider(new Pair<Long, URL>(entry.getKey(), entry.getValue())));
         }
         return ret;
     }
 
-    public static Consumer url2Consumer(Pair<Long, URL> pair) {
+    public static ConsumerEntity url2Consumer(Pair<Long, URL> pair) {
         if (pair == null) {
             return null;
         }
@@ -86,7 +86,7 @@ public class SyncUtils {
         if (null == url)
             return null;
 
-        Consumer c = new Consumer();
+        ConsumerEntity c = new ConsumerEntity();
         c.setId(id);
         c.setService(url.getServiceKey());
         c.setAddress(url.getHost());
@@ -96,8 +96,8 @@ public class SyncUtils {
         return c;
     }
 
-    public static List<Consumer> url2ConsumerList(Map<Long, URL> cs) {
-        List<Consumer> list = new ArrayList<Consumer>();
+    public static List<ConsumerEntity> url2ConsumerList(Map<Long, URL> cs) {
+        List<ConsumerEntity> list = new ArrayList<ConsumerEntity>();
         if(cs == null) return list;
         for(Map.Entry<Long, URL> entry : cs.entrySet()) {
             list.add(url2Consumer(new Pair<Long, URL>(entry.getKey(), entry.getValue())));
@@ -105,7 +105,7 @@ public class SyncUtils {
         return list;
     }
 
-    public static Route url2Route(Pair<Long, URL> pair) {
+    public static RouteEntity url2Route(Pair<Long, URL> pair) {
         if (pair == null) {
             return null;
         }
@@ -116,7 +116,7 @@ public class SyncUtils {
         if (null == url)
             return null;
 
-        Route r = new Route();
+        RouteEntity r = new RouteEntity();
         r.setId(id);
         r.setName(url.getParameter("name"));
         r.setService(url.getServiceKey());
@@ -127,8 +127,8 @@ public class SyncUtils {
         return r;
     }
 
-    public static List<Route> url2RouteList(Map<Long, URL> cs) {
-        List<Route> list = new ArrayList<Route>();
+    public static List<RouteEntity> url2RouteList(Map<Long, URL> cs) {
+        List<RouteEntity> list = new ArrayList<RouteEntity>();
         if(cs == null) return list;
         for(Map.Entry<Long, URL> entry : cs.entrySet()) {
             list.add(url2Route(new Pair<Long, URL>(entry.getKey(), entry.getValue())));
@@ -136,7 +136,7 @@ public class SyncUtils {
         return list;
     }
 
-    public static Override url2Override(Pair<Long, URL> pair) {
+    public static OverrideEntity url2Override(Pair<Long, URL> pair) {
         if (pair == null) {
             return null;
         }
@@ -147,7 +147,7 @@ public class SyncUtils {
         if (null == url)
             return null;
 
-        Override o = new Override();
+        OverrideEntity o = new OverrideEntity();
         o.setId(id);
 
         Map<String, String> parameters = new HashMap<String, String>(url.getParameters());
@@ -186,8 +186,8 @@ public class SyncUtils {
         return filterFromService(urls.get(c), filter);
     }
 
-    public static List<Override> url2OverrideList(Map<Long, URL> cs) {
-        List<Override> list = new ArrayList<Override>();
+    public static List<OverrideEntity> url2OverrideList(Map<Long, URL> cs) {
+        List<OverrideEntity> list = new ArrayList<OverrideEntity>();
         if(cs == null) return list;
         for(Map.Entry<Long, URL> entry : cs.entrySet()) {
             list.add(url2Override(new Pair<Long, URL>(entry.getKey(), entry.getValue())));

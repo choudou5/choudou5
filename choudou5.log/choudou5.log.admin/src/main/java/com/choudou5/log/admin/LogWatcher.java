@@ -75,7 +75,7 @@ public abstract class LogWatcher<E> {
     public abstract long getTimestamp(E event);
     public abstract Map toDoc(E event);
 
-    public abstract void registerListener(com.choudou5.log.admin.ListenerConfig cfg);
+    public abstract void registerListener(int listenerRow);
 
     public void reset() {
         history.clear();

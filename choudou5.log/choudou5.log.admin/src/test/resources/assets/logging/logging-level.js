@@ -1,10 +1,12 @@
-var logging_change_url = ctx + '/log/logAdmin/setting';
 
 var logging_handler = function( response, text_status, xhr )
 {
   var self = this;
   var loggers = response.loggers;
-
+  if(loggers == undefined || loggers == null){
+      alert("返回结果为空");
+      return;
+  }
   var levels = '<div class="selector-holder"><div class="selector">' + "\n"
              + '<a class="trigger"><span><em>null</em></span></a>' + "\n"
              + '<ul>' + "\n";
@@ -171,7 +173,8 @@ var logging_handler = function( response, text_status, xhr )
             dataType : 'json',
             data : {
               'name': name,
-              'level': level
+              'level': level,
+              'domain': logDomain
             },
             type : 'POST',
             context : self,
@@ -203,12 +206,10 @@ var format_time_content = function( time )
 {
   return time.toLocaleString( undefined, format_time_options ).esc();
 }
-
 Number.prototype.esc = function()
 {
   return new String( this ).esc();
 }
-
 String.prototype.esc = function()
 {
   return this.replace( /</g, '&lt;').replace( />/g, '&gt;');

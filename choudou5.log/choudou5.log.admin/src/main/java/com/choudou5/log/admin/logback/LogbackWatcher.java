@@ -6,13 +6,11 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.classic.spi.ThrowableProxy;
-import com.choudou5.base.exception.Exceptions;
-import com.choudou5.base.util.CollUtil;
-import com.choudou5.base.util.StrUtil;
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.choudou5.log.admin.CircularList;
-import com.choudou5.log.admin.ListenerConfig;
 import com.choudou5.log.admin.LogWatcher;
 import com.choudou5.log.admin.LoggerInfo;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
@@ -22,12 +20,16 @@ public class LogbackWatcher extends LogWatcher<LoggingEvent> {
     private static LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
     private Logger root = loggerContext.getLogger(LoggerInfo.ROOT_NAME);
 
+    public LogbackWatcher(int listenerRow) {
+        registerListener(listenerRow);
+    }
+
     @Override
     public void setLogLevel(String category, String level) {
         //设置某个类日志级别-可以实现定向日志级别调整
         Logger logger = loggerContext.getLogger(category);
         if (logger != null){
-            if (!StrUtil.isBlank(level)) {
+            if (level != null && level.length() > 0) {
                 logger.setLevel(Level.toLevel(level));
             }else{
                 if("unset".equals(level)||"null".equals(level)) {
@@ -41,7 +43,7 @@ public class LogbackWatcher extends LogWatcher<LoggingEvent> {
     public Collection<LoggerInfo> getAllLoggers() {
         List<Logger> list = loggerContext.getLoggerList();
         Map<String, LoggerInfo> map = new HashMap<>(64);
-        if(CollUtil.isNotEmpty(list)){
+        if(CollectionUtils.isNotEmpty(list)){
             String name = null;
             Level level = null;
             for (Logger log : list) {
@@ -67,11 +69,11 @@ public class LogbackWatcher extends LogWatcher<LoggingEvent> {
     }
 
     @Override
-    public void registerListener(ListenerConfig cfg) {
+    public void registerListener(int listenerRow) {
         if(history!=null) {
             throw new IllegalStateException("History already registered");
         }
-        history = new CircularList<>(cfg.size);
+        history = new CircularList<>(listenerRow);
     }
 
     @Override
@@ -89,8 +91,9 @@ public class LogbackWatcher extends LogWatcher<LoggingEvent> {
         ThrowableProxy t = (ThrowableProxy)event.getThrowableProxy();
         event.getLoggerContextVO();
         if(t!=null) {
-            doc.put("trace", Exceptions.getStackTraceAsString(t.getThrowable()));
+            doc.put("trace", ExceptionUtils.getStackTrace(t.getThrowable()));
         }
         return doc;
     }
+
 }

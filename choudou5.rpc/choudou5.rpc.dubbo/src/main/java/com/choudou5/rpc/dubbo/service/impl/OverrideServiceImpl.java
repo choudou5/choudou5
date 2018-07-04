@@ -17,8 +17,8 @@ package com.choudou5.rpc.dubbo.service.impl;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
+import com.choudou5.rpc.dubbo.domain.OverrideEntity;
 import com.choudou5.rpc.dubbo.service.OverrideService;
-import com.choudou5.rpc.dubbo.domain.Override;
 import com.choudou5.rpc.dubbo.util.Pair;
 import com.choudou5.rpc.dubbo.util.SyncUtils;
 
@@ -47,27 +47,27 @@ public class OverrideServiceImpl extends AbstractService implements OverrideServ
         return SyncUtils.filterFromCategory(getRegistryCache(), filter);
     }
 
-    public List<Override> findByAddress(String address) {
+    public List<OverrideEntity> findByAddress(String address) {
         return  SyncUtils.url2OverrideList(findOverrideUrl(null, address, null));
     }
 
-    public List<Override> findByServiceAndAddress(String service, String address) {
+    public List<OverrideEntity> findByServiceAndAddress(String service, String address) {
         return  SyncUtils.url2OverrideList(findOverrideUrl(service, address, null));
     }
     
-    public List<Override> findByApplication(String application) {
+    public List<OverrideEntity> findByApplication(String application) {
         return SyncUtils.url2OverrideList(findOverrideUrl(null, null, application));
     }
 
-    public List<Override> findByService(String service) {
+    public List<OverrideEntity> findByService(String service) {
         return  SyncUtils.url2OverrideList(findOverrideUrl(service, null, null));
     }
 
-    public List<Override> findByServiceAndApplication(String service, String application) {
+    public List<OverrideEntity> findByServiceAndApplication(String service, String application) {
         return  SyncUtils.url2OverrideList(findOverrideUrl(service, null, application));
     }
     
-    public List<Override> findAll() {
+    public List<OverrideEntity> findAll() {
         return SyncUtils.url2OverrideList(findOverrideUrl(null, null, null));
     }
     
@@ -75,11 +75,11 @@ public class OverrideServiceImpl extends AbstractService implements OverrideServ
         return SyncUtils.filterFromCategory(getRegistryCache(), Constants.CONFIGURATORS_CATEGORY, id);
     }
 
-    public Override findById(Long id) {
+    public OverrideEntity findById(Long id) {
         return SyncUtils.url2Override(findOverrideUrlPair(id));
     }
     
-    private URL getUrlFromOverride(Override override) {
+    private URL getUrlFromOverride(OverrideEntity override) {
     	return override.toUrl();
         /*Map<String, String> params = ConvertUtil.serviceName2Map(override.getService());
         if(!params.containsKey(Constants.INTERFACE_KEY)) {

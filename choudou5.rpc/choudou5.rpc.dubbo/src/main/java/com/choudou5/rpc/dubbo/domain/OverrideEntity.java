@@ -15,16 +15,16 @@
  */
 package com.choudou5.rpc.dubbo.domain;
 
-import java.util.Map;
-
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.StringUtils;
 
+import java.util.Map;
+
 /**
  * @author tony.chenl
  */
-public class Override extends Entity {
+public class OverrideEntity extends Entity {
     
     private static final long serialVersionUID = 114828505391757846L;
 
@@ -40,10 +40,10 @@ public class Override extends Entity {
     
     private boolean enabled;
     
-    public Override(){
+    public OverrideEntity(){
     }
 
-    public Override(long id){
+    public OverrideEntity(long id){
         super(id);
     }
     
@@ -105,7 +105,7 @@ public class Override extends Entity {
     }
 
     public String toString() {
-        return "Override [service=" + service + ", params=" + params + ", application="
+        return "OverrideEntity [service=" + service + ", params=" + params + ", application="
                 + application + ", address=" + address + ", username=" + username + ", enabled=" + enabled + "]";
     }
     
@@ -121,26 +121,26 @@ public class Override extends Entity {
     			&& (application == null || getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(application));
     }
     
-    public boolean isUniqueMatch(Provider provider) {
+    public boolean isUniqueMatch(ProviderEntity provider) {
     	return isEnabled() && getParams() != null && getParams().length() > 0
     			&& provider.getService().equals(getService())
     			&& provider.getAddress().equals(getAddress());
     }
     
-    public boolean isMatch(Provider provider) {
+    public boolean isMatch(ProviderEntity provider) {
     	return isEnabled() && getParams() != null && getParams().length() > 0
     			&& provider.getService().equals(getService())
     			&& (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
     			&& (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(provider.getApplication()));
     }
 
-    public boolean isUniqueMatch(Consumer consumer) {
+    public boolean isUniqueMatch(ConsumerEntity consumer) {
     	return isEnabled() && getParams() != null && getParams().length() > 0
     			&& consumer.getService().equals(getService())
     			&& consumer.getAddress().equals(getAddress());
     }
     
-    public boolean isMatch(Consumer consumer) {
+    public boolean isMatch(ConsumerEntity consumer) {
     	return isEnabled() && getParams() != null && getParams().length() > 0
     			&& consumer.getService().equals(getService())
     			&& (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))

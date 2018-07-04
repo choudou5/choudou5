@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+	 http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+	<dubbo:application name="test" />
+	<dubbo:registry protocol="zookeeper" address="192.168.36.226:2181,192.168.36.226:3181,192.168.36.226:4181" group="dev" check="false" file="/data/data/dubbo/dubbo-admin.cache" />
+	<dubbo:protocol name="dubbo" port="40600" />
+	<dubbo:provider delay="-1" timeout="15000" retries="0"/>
+	<dubbo:consumer check="false"/>
+
+	<!-- 暴露日志接口 [需被监控的项目加上此配置] -->
+	<bean id="logAdminService" class="com.choudou5.log.admin.service.impl.LogAdminServiceImpl"/>
+	<dubbo:service interface="com.choudou5.log.admin.service.ILogAdminService" ref="logAdminService"  version="1.0.0" />
+
+
+	<!-- 以下 为后台管理系统 需要配置的，用来管理所有新注册的 ILogAdminService接口 -->
+	<!-- 注册服务-->
+	<dubbo:reference id="registryService" interface="com.alibaba.dubbo.registry.RegistryService" check="false" />
+	<!-- 注册服务同步服务  -->
+	<bean id="registryServerSync" class="com.choudou5.rpc.dubbo.service.impl.RegistryServerSync" init-method="init" destroy-method="destroy">
+		<property name="registryService" ref="registryService"></property>
+	</bean>
+	<!-- 生产者服务-->
+	<bean id="providerService" class="com.choudou5.rpc.dubbo.service.impl.ProviderServiceImpl">
+		<property name="sync" ref="registryServerSync"/>
+	</bean>
+
+
+</beans>

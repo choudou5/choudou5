@@ -1,10 +1,27 @@
-var logging_url = ctx + '/log/logAdmin/ajaxPrintLog';
 var cookie_logging_timezone = 'logging_timezone';
 var frame_element = $( '#frame' );
 
 
+Number.prototype.esc = function() {
+    return new String( this ).esc();
+}
+String.prototype.esc = function() {
+    return this.replace( /</g, '&lt;').replace( />/g, '&gt;');
+}
+var format_time_options = {};
+var format_time = function( time ) {
+    time = time ? new Date( time ) : new Date();
+    return '<time datetime="' + time.toISOString().esc() + '">' + format_time_content( time ) + '</abbr>';
+}
+
+var format_time_content = function( time ) {
+    return time.toLocaleString( undefined, format_time_options ).esc();
+}
+
+
 bindEvent();
 
+var batchCount = 0;
 function load_logging_viewer() {
     var table = $( 'table', frame_element );
     var state = $( '#state', frame_element );
@@ -12,7 +29,7 @@ function load_logging_viewer() {
     var sticky_mode = null;
 
     $.ajax({
-        url : logging_url + '?wt=json&since=' + since,
+        url : logging_url + '?wt=json&since=' + since+'&domain='+logDomain,
         dataType : 'json',
         beforeSend : function( xhr, settings )
         {
@@ -34,11 +51,8 @@ function load_logging_viewer() {
             var docs_count = docs.length;
             var table = $( 'table', frame_element );
             $( 'h2 span', frame_element ).text( response.watcher.esc() );
-            state.html( 'Last Check: ' + format_time() );
-            setTimeout(
-                load_logging_viewer,
-                10000
-            );
+            state.html( '<font color="orange">每5秒请求1次</font>, 上次请求: <font color="red">' + format_time()+'</font>' );
+            setTimeout(load_logging_viewer, 5000);
 
             if( 0 === docs_count ){
                 table.trigger( 'update' );
@@ -84,6 +98,10 @@ function load_logging_viewer() {
                 }
             }
             content += '</tbody>';
+
+            batchCount++;
+            var tip = '<tbody><tr><td colspan="4" style="background-color: green;text-align: center;color:white;font-size:22px;">第'+batchCount+'批返回</td></tr></tbody>';
+            $( 'table', frame_element ).append( tip );
             $( 'table', frame_element ).append( content );
 
             table.data( 'latest', response.info.last ).removeClass( 'has-data' ).trigger( 'update' );
@@ -127,13 +145,13 @@ function bindEvent(){
             self.addClass( 'on' );
             $( 'table th.time span', frame_element ).text( 'UTC' );
             format_time_options.timeZone = 'UTC';
-            CacheUtil.set( cookie_logging_timezone, 'UTC' );
+            window.localStorage.setItem( cookie_logging_timezone, 'UTC' );
         }
         else{
             self.removeClass( 'on' );
             $( 'table th.time span', frame_element ).text( 'Local' );
             delete format_time_options.timeZone;
-            CacheUtil.set( cookie_logging_timezone, null );
+            window.localStorage.setItem( cookie_logging_timezone, null );
         }
 
         $( 'time', frame_element ).each(function( index, element ){
@@ -143,32 +161,8 @@ function bindEvent(){
         return false;
     });
 
-    if( 'UTC' === CacheUtil.get( cookie_logging_timezone ) ) {
+    if( 'UTC' === window.localStorage.getItem( cookie_logging_timezone ) ) {
         date_format.trigger( 'click' );
     }
 }
 
-
-
-var format_time_options = {};
-
-var format_time = function( time )
-{
-    time = time ? new Date( time ) : new Date();
-    return '<time datetime="' + time.toISOString().esc() + '">' + format_time_content( time ) + '</abbr>';
-}
-
-var format_time_content = function( time )
-{
-    return time.toLocaleString( undefined, format_time_options ).esc();
-}
-
-Number.prototype.esc = function()
-{
-    return new String( this ).esc();
-}
-
-String.prototype.esc = function()
-{
-    return this.replace( /</g, '&lt;').replace( />/g, '&gt;');
-}

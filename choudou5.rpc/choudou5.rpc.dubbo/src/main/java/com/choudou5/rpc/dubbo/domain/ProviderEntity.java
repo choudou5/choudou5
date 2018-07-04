@@ -15,13 +15,13 @@
  */
 package com.choudou5.rpc.dubbo.domain;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.choudou5.rpc.dubbo.util.ConvertUtil;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provider
@@ -29,7 +29,7 @@ import com.choudou5.rpc.dubbo.util.ConvertUtil;
  * @author william.liangf
  * @author tony.chenl
  */
-public class Provider extends Entity {
+public class ProviderEntity extends Entity {
 
     private static final long serialVersionUID = 5981342400350878171L;
 
@@ -57,14 +57,14 @@ public class Provider extends Entity {
     
     private long alived;    /*存活时间，单位秒*/
 
-    private Override override;
+    private OverrideEntity override;
 
-	private List<Override> overrides;
+	private List<OverrideEntity> overrides;
     
-    public Provider() {
+    public ProviderEntity() {
     }
     
-    public Provider(Long id) {
+    public ProviderEntity(Long id) {
         super(id);
     }
 
@@ -166,19 +166,19 @@ public class Provider extends Entity {
 		this.weight = weight;
 	}
 
-    public Override getOverride() {
+    public OverrideEntity getOverride() {
 		return override;
 	}
 
-	public void setOverride(Override override) {
+	public void setOverride(OverrideEntity override) {
 		this.override = override;
 	}
 
-	public List<Override> getOverrides() {
+	public List<OverrideEntity> getOverrides() {
 		return overrides;
 	}
 
-	public void setOverrides(List<Override> overrides) {
+	public void setOverrides(List<OverrideEntity> overrides) {
 		this.overrides = overrides;
 	}
 
