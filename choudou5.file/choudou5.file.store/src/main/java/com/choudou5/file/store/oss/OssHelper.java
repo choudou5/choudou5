@@ -37,7 +37,7 @@ public class OssHelper implements FileHelper {
 
     private OssHelper(){}
 
-    public OssHelper(String accessKeyId, String accessKeySecret, String bucketName) {
+    public OssHelper(String endpoint, String accessKeyId, String accessKeySecret, String bucketName) {
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
         this.bucketName = bucketName;
@@ -101,18 +101,24 @@ public class OssHelper implements FileHelper {
     }
 
     @Override
+    public long getFileSize(String key) {
+        ObjectMetadata metadata = client.getObjectMetadata(bucketName, key);
+        return metadata.getContentLength();
+    }
+
+    @Override
     public String getSignAccUrl(String key, int timeoutSecond) {
         return getSignAccUrl(bucketName, key, timeoutSecond);
     }
 
     @Override
-    public void upload(String key, InputStream is) {
-        upload(bucketName, key, is);
+    public boolean upload(String key, InputStream is) {
+        return upload(bucketName, key, is);
     }
 
     @Override
-    public void upload(String key, File file) {
-        upload(bucketName, key, file);
+    public boolean upload(String key, File file) {
+        return upload(bucketName, key, file);
     }
 
     @Override
@@ -133,15 +139,19 @@ public class OssHelper implements FileHelper {
     }
 
     @Override
-    public void upload(String bucketName, String key, InputStream is) {
+    public boolean upload(String bucketName, String key, InputStream is) {
         PutObjectResult result = client.putObject(new PutObjectRequest(bucketName, key, is));
-        result.getResponse().isSuccessful();
+        if(result.getResponse() != null)
+            return result.getResponse().isSuccessful();
+        return false;
     }
 
     @Override
-    public void upload(String bucketName, String key, File file) {
+    public boolean upload(String bucketName, String key, File file) {
         PutObjectResult result = client.putObject(new PutObjectRequest(bucketName, key, file));
-        result.getResponse().isSuccessful();
+        if(result.getResponse() != null)
+            return result.getResponse().isSuccessful();
+        return false;
     }
 
     @Override

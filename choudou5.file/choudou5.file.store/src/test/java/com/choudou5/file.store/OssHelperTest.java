@@ -23,7 +23,7 @@ public class OssHelperTest extends BaseApiTest {
         String accessKeyId = "xx";
         String accessKeySecret = "ggg";
         String bucketName = "ttt";
-        helper = new OssHelper(accessKeyId, accessKeySecret, bucketName);
+        helper = new OssHelper("", accessKeyId, accessKeySecret, bucketName);
     }
 
     @Test

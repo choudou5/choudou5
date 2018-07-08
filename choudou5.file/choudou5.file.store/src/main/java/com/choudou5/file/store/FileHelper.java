@@ -13,11 +13,13 @@ import java.io.InputStream;
  */
 public interface FileHelper {
 
+    long getFileSize(String key);
+
     String getSignAccUrl(String key, int timeoutSecond);
 
-    void upload(String key, InputStream is);
+    boolean upload(String key, InputStream is);
 
-    void upload(String key, File file);
+    boolean upload(String key, File file);
 
     File download(String key, String destPath);
 
@@ -26,9 +28,9 @@ public interface FileHelper {
 
     String getSignAccUrl(String bucketName, String key, int timeoutSecond);
 
-    void upload(String bucketName, String key, InputStream is);
+    boolean upload(String bucketName, String key, InputStream is);
 
-    void upload(String bucketName, String key, File file);
+    boolean upload(String bucketName, String key, File file);
 
     File download(String bucketName, String key, String destPath);
 
